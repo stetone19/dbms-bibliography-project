@@ -119,6 +119,7 @@ INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm172
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx1728.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1200.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx1200.tfm
+INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx1440.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr8.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr6.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi12.tfm
@@ -130,19 +131,18 @@ INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy6.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmex10.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex8.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
-INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx1440.tfm
 OUTPUT c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.pdf
 INPUT C:\Users\stefa\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT .\img\SchemaER.pdf
+INPUT .\img\SchemaER.pdf
+INPUT .\img\SchemaER.pdf
+INPUT .\img\SchemaER.pdf
+INPUT .\img\SchemaER.pdf
+INPUT .\img\SchemaER.pdf
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecti1200.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ectt1200.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm0800.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm0600.tfm
-INPUT .\img\SchemaERgrezzo.pdf
-INPUT .\img\SchemaERgrezzo.pdf
-INPUT .\img\SchemaERgrezzo.pdf
-INPUT .\img\SchemaERgrezzo.pdf
-INPUT .\img\SchemaERgrezzo.pdf
-INPUT .\img\SchemaERgrezzo.pdf
 INPUT .\img\SchemaERpt1.pdf
 INPUT .\img\SchemaERpt1.pdf
 INPUT .\img\SchemaERpt1.pdf
@@ -178,6 +178,7 @@ INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
 INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmex10.tfm
+INPUT C:\Users\stefa\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm1095.tfm
 INPUT c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.aux
 INPUT C:\Users\stefa\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1095.pk
 INPUT C:\Users\stefa\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1095.pk
