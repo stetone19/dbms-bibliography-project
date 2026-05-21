@@ -36,21 +36,42 @@
 
 \maketitle
 \section{Indice}
-\begin{itemize}
-    \item \textbf{Glossario dei termini} (Sezione 2)
-    \item \textbf{Strutturazione dei requisiti} (Sezione 3)
-    \item \textbf{Tavola dei volumi} (Sezione 4)
-    \item \textbf{Schema concettuale} (Sezione 5)
-    \item \textbf{Schema logico} (Sezione 6)
-    \item \textbf{Operazioni e Query} (Sezione 7)
-    \item \textbf{Trigger} (Sezione 8)
-\end{itemize}
+\begin{enumerate}
+    \item Analisi dei requisiti
+    \begin{itemize}
+        \item \ref{sec:introduzione}Introduzione alla richiesta
+        \item \ref{sec:glossario} Glossario dei termini
+        \item \ref{sec:strutturazione} Strutturazione dei requisiti
+    \end{itemize}
+    \item \ref{sec:progettazione-concettuale} Progettazione concettuale
+    \begin{itemize}
+        \item \ref{subsec:pubblicazione} Gestione dell'entità Pubblicazione e delle sue specializzazioni
+        \item \ref{subsec:affiliazione} Gestione dell'entità Affiliazione e delle sue specializzazioni
+        \item \ref{subsec:integrazione} Integrazione dei componenti e schema finale
+    \end{itemize}
+    \item \ref{sec:progettazione-logica} Progettazione logica
+    \begin{itemize}
+        \item \ref{subsec:tavola-volumi} Tavola dei volumi
+        \item \ref{subsec:analisi-ridondanze} Analisi delle ridondanze
+        \item \ref{subsec:ristrutturazione-schema} Ristrutturazione dello schema ER
+    \end{itemize}
+    \item \ref{sec:progettazione-fisica} Progettazione fisica
+    \begin{itemize}
+        \item \ref{subsec:schema-relazionale} Schema relazionale
+        \item \ref{subsec:trigger-citazioni} Definizione di trigger per l'aggiornamento del numero di citazioni
+    \end{itemize}
+    \item \ref{sec:query} Query
+    \item \ref{sec:conclusioni} Conclusioni
+\end{enumerate}
 
 \section{Analisi dei requisiti}
+\label{sec:introduzione}
 \subsection{Introduzione alla richiesta}
-Il progetto richiede la progettazione di una base di dati relazionale per la gestione di una bibliografia, con un focus specifico sulle pubblicazioni accademiche. La base di dati deve essere in grado di gestire un ampio insieme di pubblicazioni, ciascuna caratterizzata da attributi specifici e relazioni complesse con autori, affiliazioni, editori, ecc. L'obiettivo è creare un modello concettuale che rappresenti fedelmente il dominio, seguito da una progettazione logica e fisica che ottimizzi le operazioni più frequenti, come la stampa dei dati e l'inserimento di nuove pubblicazioni. Inoltre, è richiesta l'implementazione di trigger per mantenere l'integrità dei dati e l'efficienza delle query, nonché la definizione di operazioni e query specifiche per l'analisi dei dati bibliografici.
-\subsection{Glossario dei termini}
+Il progetto richiede la progettazione di una base di dati relazionale per la gestione di una bibliografia. La base di dati deve essere in grado di gestire un ampio insieme di pubblicazioni, ciascuna caratterizzata da attributi specifici e relazioni complesse con autori, affiliazioni, editori, ecc. L'obiettivo è creare un modello concettuale che rappresenti fedelmente il dominio, seguito da una progettazione logica e fisica che ottimizzi le operazioni più frequenti, come la stampa dei dati e l'inserimento di nuove pubblicazioni. Inoltre, è richiesta l'implementazione di trigger per mantenere l'integrità dei dati e l'efficienza delle query, nonché la definizione di operazioni e query specifiche per l'analisi dei dati bibliografici.
+\\ Abbiamo valutato di focalizzare il progetto sull'ambito di una bibliografia accademica di un contesto regionale, in modo da avere un ambito limitato e ben definito.
 
+\subsection{Glossario dei termini}
+\label{sec:glossario}
 \begin{tabularx}{\textwidth}{l X X}
 \toprule
 \textbf{Termine} & \textbf{Descrizione} & \textbf{Collegamenti} \\
@@ -58,7 +79,7 @@ Il progetto richiede la progettazione di una base di dati relazionale per la ges
 Pubblicazione & Elemento di bibliografia & Autore, Pubblicazione \\
 Articolo su rivista & Tipo di pubblicazione & Autore, Pubblicazione \\
 Articolo per conferenza & Tipo di pubblicazione & Autore, Pubblicazione \\
-Libro & Tipo di pubblicazione & Autore, Pubblicazione, Editor \\
+Libro & Tipo di pubblicazione & Autore, Pubblicazione, Editore \\
 Tesi & Tipo di pubblicazione & Autore, Pubblicazione, Università \\
 Autore & Persona che scrive una pubblicazione & Pubblicazione, Affiliazione \\
 Affiliazione & Gruppo di autori & Autore \\
@@ -68,7 +89,7 @@ Università & Luogo di discussione della tesi & Tesi \\
 \end{tabularx}
 
 \subsection{Strutturazione dei requisiti}
-
+\label{sec:strutturazione}
 \subsubsection{Frasi di carattere generale}
 Si supponga di aver collezionato il seguente insieme di requisiti per la progettazione di una base di dati relazionale per la gestione di una bibliografia. Una bibliografia è costituita da un insieme di pubblicazioni.
 
@@ -93,10 +114,31 @@ Si supponga di aver collezionato il seguente insieme di requisiti per la progett
     \item \textbf{Università:} Identificate univocamente dal nome, includono indirizzo e telefono.
 \end{itemize}
 
-\section{Progettazione concettuale}
-\subsection{Gestione dell'entità Pubblicazione e delle sue specializzazioni}
-\subsection{Gestione dell'entità Affiliazione e delle sue specializzazioni}
-\subsection{Gestione della relazione Tesi-Affiliazione e di Autore}
+\section{Progettazione concettuale} \label{sec:progettazione-concettuale}
+Lo schema Entità-Relazione è stato progettato per rappresentare in modo fedele e completo il dominio della bibliografia accademica, tenendo conto dei requisiti specifici e delle relazioni complesse tra le entità coinvolte. Di seguito viene presentata una descrizione dettagliata delle principali componenti dello schema ER, con particolare attenzione alla gestione delle entità e delle relazioni più rilevanti. Lo schema è stato costruito utilizzando una tecnica bottom-up, partendo dalle entità singole e dalle relazioni più semplici, per poi integrare progressivamente le specializzazioni e le associazioni più complesse. Si segnala che nello schema ER, le citazioni sono rappresentate come una relazione ricorsiva tra le pubblicazioni.
+\subsection{Gestione dell'entità Pubblicazione e delle sue specializzazioni} \label{subsec:pubblicazione}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/Pubblicazione.pdf} % image file path
+    \caption{Entità Pubblicazione e specializzazioni}
+    \label{fig:label_immagine}
+\end{figure}
+
+L'entità \textbf{Pubblicazione} è stata modellata come un'entità genitore con tre specializzazioni: \textbf{Articolo}, \textbf{Libro} e \textbf{Tesi}. Questa scelta è motivata dalla necessità di rappresentare in modo chiaro e strutturato le differenze tra i vari tipi di pubblicazione, che presentano attributi specifici e relazioni distinte con altre entità (ad esempio, l'editore per i libri e l'università per le tesi). La specializzazione è stata implementata utilizzando una gerarchia a copertura totale, in cui ogni pubblicazione deve essere necessariamente classificata come uno dei tre tipi specifici. L'entità \textbf{Articolo} è ulteriormente specializzata in \textbf{Rivista} e \textbf{Conferenza}, in quanto gestiscono attributi distinti (ad esempio, il numero del volume per le riviste e il luogo della conferenza per gli articoli di conferenza). La specializzazione è totale disgiunta, perchè coprono tutti gli articoli, ma non si sovrappongono tra loro.
+L'entità \textbf{Editore} è collegata all'entità \textbf{Libro} tramite una relazione di pubblicazione, e presenta un attributo composto \textit{Indirizzo} che include via, numero civico, città e nazione. La relazione è uno a molti, in quanto un editore può pubblicare più libri. Infine, come scritto in precedenza, la citazione viene gestita come una relazione ricorsiva tra le pubblicazioni, consentendo di modellare in modo efficace le dinamiche di riferimento bibliografico all'interno del sistema. 
+
+\subsection{Gestione dell'entità Affiliazione e delle sue specializzazioni} \label{subsec:affiliazione}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/Affiliazione.pdf} % image file path
+    \caption{Entità Autore, Affiliazione e specializzazioni}
+    \label{fig:label_immagine}
+\end{figure}
+L'entità \textbf{Affiliazione} è stata specializzata in \textbf{Università} ed \textbf{Ente di Ricerca} per rappresentare in modo più dettagliato le diverse tipologie di affiliazioni che un autore può avere. Questa specializzazione è stata implementata utilizzando una gerarchia a copertura parziale, in quanto ci possono essere affiliazioni che non rientrano in nessuna delle due categorie. La scelta di mantenere separate le entità figlie è motivata dalla possibilità di collegare successivamente l'università alle tesi, mentre gli enti di ricerca non hanno questa relazione. L'entità \textbf{Autore} è collegata all'entità \textbf{Affiliazione} tramite una relazione di appartenenza, che consente di modellare il fatto che un autore può essere affiliato a più enti nel tempo. La relazione è molti a molti, in quanto un autore può avere più affiliazioni e un'affiliazione può essere associata a più autori. Non è richiesto di gestire i periodi di appartenenza da parte di un autore a un'affiliazione (storicizzazione), ad esempio se un autore è stato affiliato a un'affiliazione in periodi diversi, non è necessario tenere traccia di queste informazioni.
+\\Si noti che l'entità \textbf{Ente di Ricerca} è stata aggiunta su suggerimento del docente, al fine di rappresentare in modo più completo il dominio delle affiliazioni, che non si limitano esclusivamente alle università, ma includono anche altri tipi di organizzazioni coinvolte nella ricerca accademica.
+\\L'entità \textbf{Autore} non presenta chiavi candidate, in quanto non è specificato dalla richiesta che qualche combinazione di attributi possa fungere da identificatore univoco. 
+
+\subsection{Integrazione dei componenti e schema finale} \label{subsec:integrazione}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{img/SchemaER.pdf} % image file path
@@ -104,8 +146,10 @@ Si supponga di aver collezionato il seguente insieme di requisiti per la progett
     \label{fig:label_immagine}
 \end{figure}
 
-\section{Progettazione logica}
-\subsection{Tavola dei volumi}
+Per integrare i componenti prodotti, si crea una relazione molti a molti fra \textbf{Autore} e \textbf{Affiliazione}. Infine si collega l'entità \textbf{Tesi} con l'entità \textbf{Università} tramite una relazione di sede, in quanto ogni tesi è discussa in una specifica università. Questo comporta la creazione di un ciclo problematico, che viene gestito nelle fasi successive perchè potrebbero crearsi incongruenza dei dati. Es. un autore affiliato a un ente di ricerca non può essere associato a una tesi, ma se il ciclo non è gestito potrebbe essere associato a una tesi senza avere coautori affiliati all'università dove ha sede la tesi.
+
+\section{Progettazione logica} \label{sec:progettazione-logica}
+\subsection{Tavola dei volumi} \label{subsec:tavola-volumi}
 
 \begin{tabularx}{\textwidth}{l c r}
 \toprule
@@ -117,10 +161,10 @@ Articolo per conferenza & E & 15.000 \\
 Libro & E & 10.000 \\
 Tesi & E & 55.000 \\
 Autore & E & 70.000 \\
-Affiliazione & E & 500 \\
-Editore & E & 400 \\
-Università & E & 300 \\
-Ente di ricerca & E & 200 \\
+Affiliazione & E & 200 \\
+Editore & E & 150 \\
+Università & E & 35 \\
+Ente di ricerca & E & 100 \\
 \midrule
 Citazione & R & $100.000 \times 20$ \\
 Scritto & R & $3,3 \times 100.000$ \\
@@ -134,12 +178,11 @@ Pubblica & R & 10.000 \\
 
 La tavola dei volumi rappresenta il passaggio fondamentale dalla progettazione concettuale a quella logica, fornendo una stima quantitativa del carico che il database dovrà sostenere. Il sistema gestisce un totale di \textbf{100.000 pubblicazioni}. Si noti come la somma delle entità figlie (\textit{Articolo su rivista, Articolo per conferenza, Libro, Tesi}) sia esattamente pari a 100.000, riflettendo la scelta di una \textbf{gerarchia a copertura totale}. Le tesi rappresentano la quota maggioritaria (55.000), coerentemente con un dominio accademico.
 
-La relazione \texttt{Citazione} è la più onerosa del sistema, con un volume stimato di \textbf{2.000.000 di record} ($100.000 \times 20$). Questa dimensione giustifica l'introduzione dell'attributo derivato \texttt{NumeroCitazioni} per ottimizzare le operazioni di sola lettura, nonostante l'aggravio nei tempi di inserimento. In seguito viene mostrata un'analisi comparativa tra le due soluzioni, evidenziando i trade-off in termini di costo computazionale per le operazioni più frequenti.
 Con \textbf{70.000 autori} e una media di 3,3 autori per pubblicazione (relazione \texttt{Scritto}), il sistema deve gestire circa 330.000 legami autore-opera. La relazione \texttt{Appartenenza} ($70.000 \times 2$) modella correttamente il turnover accademico, prevedendo che ogni autore sia mediamente affiliato a due enti diversi nel tempo.
-Il numero contenuto di \textbf{Affiliazioni (500)}, \textbf{Editori (400)} e \textbf{Università (300)} suggerisce che queste tabelle fungeranno da "anagrafiche di controllo", con un basso tasso di aggiornamento rispetto alle tabelle transazionali delle pubblicazioni e citazioni.
-\subsection{Analisi delle ridondanze}
+Il numero contenuto di \textbf{Affiliazioni (200)}, \textbf{Editori (150)} e \textbf{Università (35)} suggerisce che queste tabelle fungeranno da "anagrafiche di controllo", con un basso tasso di aggiornamento rispetto alle tabelle transazionali delle pubblicazioni e citazioni. In generale questi volumi sono adatti per un contesto regionale, come quello ipotizzato. Essendo che possono esserci \textbf{Affiliazioni} che non sono né \textbf{Università} né \textbf{Enti di Ricerca}, è stato stimato un numero di 65 affiliazioni che non rientrano in nessuna delle due categorie, portando il totale a 200.
+\subsection{Analisi delle ridondanze} \label{subsec:analisi-ridondanze}
 \subsubsection*{Frequenza delle Operazioni più comuni}
-Ecco una stima della frequenza delle operazioni più comuni che il sistema dovrà gestire, basata su ipotesi ragionevoli e coerenti con il dominio accademico:
+Ecco una stima della frequenza delle operazioni più comuni che il sistema dovrà gestire, basata su ipotesi ragionevoli e coerenti con il dominio accademico regionale:
 \begin{enumerate}[label=\textbf{OP\arabic*}, start=1, leftmargin=1.5cm]
     \item \textbf{Stampa delle pubblicazioni} \\
     Frequenza: 200/500 volte al giorno.
@@ -151,13 +194,13 @@ Ecco una stima della frequenza delle operazioni più comuni che il sistema dovr�
     \item \textbf{Inserire un autore} \\
     Frequenza: 10 volte al giorno.
 
-    \item \textbf{Modifica autore/affiliazione} \\
+    \item \textbf{Modifica affiliazione} \\
     Frequenza: 1 volta al giorno (frequenza stimata).
 \end{enumerate}
-Gli unici due attributi ridondanti presenti nello schema sono: \texttt{NumeroCitazioni} nell'entità \textbf{Pubblicazione} e \texttt{NumeroPagineTotali} nell'entità \textbf{Articolo}. Il primo è stato introdotto per ottimizzare le operazioni di stampa dei dati generali (\textit{OP1}). Il secondo è superfluo, in quanto è possibile calcolarlo dinamicamente come differenza tra \texttt{PaginaFinale} e \texttt{PaginaIniziale} più uno. Di seguito viene mostrata un'analisi comparativa tra le due soluzioni per la prima ridondanza, evidenziando i trade-off in termini di costo computazionale per le operazioni più frequenti.
-
-\subsubsection{Con Ridondanza dell'attributo NumeroCitazioni}
-*Nota: Per il calcolo del costo, si assume che un accesso a un'entità o relazione di tipo "L" (lettura) abbia un costo unitario di 1, mentre un accesso di tipo "S" (scrittura) abbia un costo unitario di 2, riflettendo l'overhead aggiuntivo associato alle operazioni di scrittura rispetto a quelle di lettura. 
+Gli unici due attributi ridondanti presenti nello schema sono: \texttt{NumeroCitazioni} nell'entità \textbf{Pubblicazione} e \texttt{NumeroPagineTotali} nell'entità \textbf{Articolo}. Si fa un'analisi comparativa tra le due soluzioni per il primo attributo, considerando l'impatto della ridondanza sull'efficienza del sistema, in particolare per le operazioni di stampa e aggiornamento delle citazioni, che sono le più frequenti.
+Per il secondo attributo ridondante, essendo un attributo comune a tutte le sottoentità dell'entità \textbf{Pubblicazione}, si è deciso di mantenerlo. Da qui si è optato di rimuovere l'attributo \texttt{Pagina finale}, in quanto è facilmente calcolabile a partire da \texttt{Pagina iniziale} e \texttt{NumeroPagineTotali}. 
+\subsubsection{Con Ridondanza dell'attributo NumeroCitazioni} 
+Per il calcolo del costo, si assume che un accesso a un'entità o relazione di tipo "L" (lettura) abbia un costo unitario di 1, mentre un accesso di tipo "S" (scrittura) abbia un costo unitario di 2, riflettendo l'overhead aggiuntivo associato alle operazioni di scrittura rispetto a quelle di lettura. 
 La stima del costo totale è effettuata con il dato di frequenza maggiore per ogni operazione, al fine di valutare l'impatto massimo della ridondanza sull'efficienza del sistema.
 \subsubsection*{Operazione 1}
 \begin{tabular}{llll}
@@ -194,7 +237,7 @@ Autore        & Entità & 1 & S \\
 
 \textbf{Costo:} $(40 \times 4) \times 2 + (40 \times 1) \times 1 = 360$ unità
 
-\subsubsection{Senza Ridondanza dell'attributo NumeroCitazioni}
+\subsubsection{Senza Ridondanza dell'attributo NumeroCitazioni} 
 
 \subsubsection*{Operazione 1}
 \begin{tabular}{llll}
@@ -207,7 +250,7 @@ Citazione     & Relazione & 20 & L \\
 \end{tabular}
 
 \paragraph{Descrizione:} 
-Stampo i dati relativi ad una pubblicazione. Per ogni pubblicazione, per calcolare il numero di citazioni dobbiamo accedere in media alla relazione ``citazione'', calcolato come: $\frac{\text{volume Citazione}}{\text{volume Pubblicazioni}} = 20$.
+Stampo i dati relativi ad una pubblicazione. Per ogni pubblicazione, per calcolare il numero di citazioni si accede alla relazione Citazione. Il numero medio di accessi per Pubblicazione è calcolato come: $\frac{\text{volume Citazione}}{\text{volume Pubblicazioni}} = 20$.
 
 \medskip
 \textbf{Costo:} $500 \times (20 + 1) \times 1 = 10.500$ unità di costo
@@ -233,7 +276,7 @@ Autore        & Entità & 1 & S \\
 \medskip
 \textbf{Costo:} $40 \times 3 \times 2 = 240$ unità di costo
 
-\subsubsection{Studio Comparativo}
+\subsubsection{Studio Comparativo} 
 
 \begin{table}[h]
 \centering
@@ -251,10 +294,12 @@ OP2 & 360 & 240 \\
 
 \textbf{Conclusione:} Poiché $860 < 10.740$, conviene mantenere l'attributo derivato.
 
-\subsection{Ristrutturazione dello schema ER}
+\subsection{Ristrutturazione dello schema ER} \label{subsec:ristrutturazione-schema}
+In seguito vengono mostrate le modifiche apportate al modello ER per favorire la traduzione nello schema logico relazionale, con particolare attenzione alla gestione delle specializzazioni e alla semplificazione di alcune strutture complesse.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SchemaERpt1.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/SER1.pdf} % image file path
     \caption{Schema ER modificato dopo la prima revisione}
     \label{fig:label_immagine2}
 \end{figure}
@@ -262,29 +307,29 @@ OP2 & 360 & 240 \\
 \textbf{Specializzazione Rivista-Conferenza:} 
 La gerarchia è stata accorpata verso l'alto (ristrutturazione verso il padre) eliminando le entità figlie e migrandone gli attributi nell'entità genitore \textit{Articolo}. Per distinguere le occorrenze, è stato introdotto l'attributo discriminante \textit{Tipo}, i cui valori sono vincolati al dominio $\{\text{Rivista, Conferenza}\}$. 
 
-Gli attributi derivanti dalle classi figlie sono stati definiti come opzionali (cardinalità 0..1), con l'eccezione dell'attributo \textit{Nome}, che rimane obbligatorio in quanto comune a entrambe le tipologie. Si specifica, inoltre, che l'attributo \textit{AnnoConferenza} deve essere semanticamente distinto dall'attributo \textit{AnnoPubblicazione}.
+Gli attributi derivanti dalle classi figlie sono stati definiti come opzionali (cardinalità 0..1), con l'eccezione dell'attributo \textit{Nome}, che rimane obbligatorio in quanto comune a entrambe le tipologie. Si specifica, inoltre, che l'attributo \textit{AnnoConferenza} deve essere semanticamente distinto dall'attributo \textit{AnnoPubblicazione}. Ad esempio una Conferenza può essere svolta in un anno diverso da quello di pubblicazione dell'articolo associato.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SchemaERpt2.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/SER2.pdf} % image file path
     \caption{Schema ER modificato dopo la seconda revisione}
     \label{fig:label_immagine3}
 \end{figure}
 
 \noindent
 \textbf{Semplificazione della Gerarchia Affiliazione:}
-La specializzazione tra l'entità \textit{Affiliazione} (padre) e le sottoclassi \textit{Università} ed \textit{Ente di Ricerca} è stata risolta mediante l'accorpamento verso il padre. Tale scelta è motivata dall'assenza di attributi specifici rilevanti nelle entità figlie. 
+La specializzazione tra l'entità \textit{Affiliazione} (padre) e le sottoentità \textit{Università} ed \textit{Ente di Ricerca} è stata risolta mediante l'accorpamento verso il padre. Tale scelta è motivata dall'assenza di attributi specifici rilevanti nelle entità figlie. 
 
 Per preservare la semantica originale, è stato introdotto un vincolo di integrità basato sul tipo di affiliazione: l'associazione con l'entità \textit{Tesi} è valida esclusivamente per le occorrenze di tipo \textit{Università}. In termini di cardinalità, il rapporto tra \textit{Tesi} ed \textit{Affiliazione} è di $(1,1)$, mentre la partecipazione dell'entità \textit{Affiliazione} è $(0,n)$, poiché solo il sottoinsieme relativo alle università può essere associato a una tesi.
 
 \noindent
 \textbf{Semplificazione dell'attributo Indirizzo:}
-L'attributo composto \textit{Indirizzo Fisico} è stato ristrutturato mediante un processo di aggregazione dei suoi componenti (quali via, numero civico, CAP e città). Al fine di semplificare l'implementazione nel modello logico e facilitare le operazioni di inserimento, i singoli campi sono stati unificati in un unico attributo atomico di tipo stringa.
+L'attributo composto \textit{Indirizzo Fisico} è stato ristrutturato mediante un processo di aggregazione dei suoi componenti (quali via, numero civico, CAP e città). Al fine di semplificare l'implementazione nel modello logico e facilitare le operazioni di inserimento, i singoli campi sono stati unificati in un unico attributo atomico di tipo stringa. Questo viene fatto perchè non esistono gli attributi composti nel modello logico relazionale, quindi è necessario semplificare la struttura dell'attributo per garantire una traduzione più diretta e senza perdita di informazioni.
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SchemaERpt3.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/SER3.pdf} % image file path
     \caption{Schema ER modificato dopo la terza revisione}
     \label{fig:label_immagine4}
 \end{figure}
@@ -297,69 +342,71 @@ Per implementare correttamente il legame logico, sono state definite relazioni e
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SchemaERpt4.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/SER4.pdf} % image file path
     \caption{Schema ER modificato dopo la quarta revisione}
     \label{fig:label_immagine5}
 \end{figure}
 
 
 \noindent
-\textbf{Ristrutturazione della relazione "Scritto" e "Appartenenza":}
+\textbf{Ristrutturazione della relazione "Scritto" e "Appartenenza", chiave su Autore:}
 La relazione \textit{Scritto} è stata ristrutturata in modo da inserire un'entità associativa, denominata \textit{Pubb-Autori}, che collega l'entità \textit{Autore} con l'entità \textit{Pubblicazione}. Questa scelta è motivata dalla necessità di rappresentare correttamente la relazione molti-a-molti tra autori e pubblicazioni, consentendo di gestire efficacemente i casi in cui una pubblicazione abbia più autori e un autore abbia più pubblicazioni. Lo stesso approccio è stato adottato per la relazione \textit{Appartenenza}, con l'introduzione dell'entità associativa \textit{Aut-Aff} che collega l'entità \textit{Autore} con l'entità \textit{Affiliazione}. Questa ristrutturazione consente di modellare in modo più flessibile le dinamiche di affiliazione degli autori, che possono essere associati a più enti nel tempo, e di mantenere una chiara tracciabilità delle relazioni tra autori e affiliazioni.
+\\ Infine, si è notato che l'entità \textit{Autore} non presenta chiavi candidate, in quanto non è specificato dalla richiesta che qualche combinazione di attributi possa fungere da identificatore univoco. Pertanto, è stato introdotto un nuovo attributo \textit{ID} come chiave primaria per l'entità \textit{Autore}, garantendo così l'univocità.
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SchemaERfinale.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/SERF.pdf} % image file path
     \caption{Schema ER finale senza le modifiche di dettaglio}
     \label{fig:label_immagine}
 \end{figure}
-
-
-\subsection{Schema logico}
+Si evidenzia che dal modello ER non si riescono a gestire i vincoli di non autocitazione e non citazione circolare. Anche il ciclo problematico creato dalla relazione tra \textit{Pubblicazione}, \textit{Autore} e \textit{Affiliazione} non è gestibile. Questi vincoli saranno gestiti a livello di progettazione fisica, tramite l'implementazione di trigger che assicurino la coerenza dei dati durante le operazioni di inserimento e aggiornamento.
+\subsection{Schema logico} \label{subsec:schema-relazionale}
 
 Dal moodello ER finale, si ottiene lo schema logico relazionale seguente:
-\\PUBBLICAZIONI(\underline{Codice},Titolo, Anno, NumeroCitazioni) \\
-ARTICOLI(\underline{CodicePubblicazione}, Nome, NumeroRivista, LuogoRivista, Anno, PaginaIniziale, PaginaFinale, Tipo) \\
-LIBRI(\underline{CodicePubblicazione}, ISBN, NumeroPagine, NomeEditore) \\
-TESI(\underline{CodicePubblicazione}, Argomento, NumeroPagine, Affiliazione) \\
+\\PUBBLICAZIONI(\underline{Codice},Titolo, Anno, NumeroPagine, NumeroCitazioni) \\
+ARTICOLI(\underline{CodicePubblicazione}, Nome, NumeroVolume, LuogoConferenza, AnnoConferenza, PaginaIniziale, Tipo) \\
+LIBRI(\underline{CodicePubblicazione}, ISBN, NomeEditore) \\
+TESI(\underline{CodicePubblicazione}, Argomento, Affiliazione) \\
 AUTORI(\underline{ID}, Nome, Cognome, Email, SitoWeb) \\
-AFFILIAZIONI(\underline{Nome}, IndirizzoFisico, NumeroTelefono, Tipo) \\
+AFFILIAZIONI(\underline{Nome}, Indirizzo, Telefono, Tipo) \\
 EDITORI(\underline{Nome}, Indirizzo) \\
-CITAZIONI(\underline{PubblicazioneChiamante}, \underline{PubblicazioneCitata}) \\
-PUBB-AUTORI(\underline{IDAutore}, \underline{CodicePubblicazione}) \\
-AUT-AFF(\underline{IDAutore}, \underline{NomeAffiliazione}) \\
+CITAZIONI(\underline{PubblicazioneCitante}, \underline{PubblicazioneCitata}) \\
+PUBBLICAZIONEAUTORE(\underline{IDAutore}, \underline{CodicePubblicazione}) \\
+AUTOREAFFILIAZIONE(\underline{IDAutore}, \underline{NomeAffiliazione}) \\
 *le chiavi primarie sono sottolineate, mentre le chiavi esterne sono indicate con frecce.
 \textbf{Chiavi esterne:} \\
 $\text{ARTICOLI.CodicePubblicazione} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
 $\text{LIBRI.CodicePubblicazione} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
 $\text{TESI.CodicePubblicazione} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
-$\text{CITAZIONI.PubblicazioneChiamante} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
+$\text{CITAZIONI.PubblicazioneCitante} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
 $\text{CITAZIONI.PubblicazioneCitata} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
 $\text{LIBRI.NomeEditore} \rightarrow \text{EDITORI.Nome}$ \\
 $\text{TESI.Affiliazione} \rightarrow \text{AFFILIAZIONI.Nome}$ \\
-$\text{PUBB-AUTORI.IDAutore} \rightarrow \text{AUTORI.ID}$ \\
-$\text{PUBB-AUTORI.CodicePubblicazione} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
-$\text{AUT-AFF.IDAutore} \rightarrow \text{AUTORI.ID}$ \\
-$\text{AUT-AFF.NomeAffiliazione} \rightarrow \text{AFFILIAZIONI.Nome}$ \\
+$\text{PUBBLICAZIONEAUTORE.IDAutore} \rightarrow \text{AUTORI.ID}$ \\
+$\text{PUBBLICAZIONEAUTORE.CodicePubblicazione} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
+$\text{AUTOREAFFILIAZIONE.IDAutore} \rightarrow \text{AUTORI.ID}$ \\
+$\text{AUTOREAFFILIAZIONE.NomeAffiliazione} \rightarrow \text{AFFILIAZIONI.Nome}$ \\
 \\
 Si noti che le chiavi primarie sono state definite in modo da garantire l'univocità di ogni record, mentre le chiavi esterne sono state implementate per mantenere l'integrità referenziale tra le tabelle, assicurando che le relazioni logiche tra i dati siano rispettate. L'unica chiave candidabile non scelta come chiave primaria è l'ISBN nella tabella \textbf{LIBRI}, poiché il codice della pubblicazione è già un identificatore univoco sufficiente per distinguere ogni libro all'interno del sistema. Si è preferito mantenere un'unica chiave primaria per semplificare le operazioni di join e ridurre la complessità del modello, evitando la necessità di gestire chiavi composite o multiple per la stessa entità. \\
 
 
-\section{Progettazione fisica (Implementazione DB)}
-
+\section{Progettazione fisica (Implementazione DB)} \label{sec:progettazione-fisica}
+Il DB è stato implementato utilizzando il sistema di gestione di database relazionale PostgreSQL, scelto per la sua robustezza, scalabilità e supporto avanzato alle funzionalità richieste dal progetto. La progettazione fisica ha seguito le best practice per l'ottimizzazione delle prestazioni, la gestione dell'integrità dei dati e la facilità di manutenzione. Di seguito vengono descritte le principali fasi dell'implementazione, inclusa la generazione delle tabelle SQL, il popolamento del database con dati di esempio e l'implementazione di trigger per garantire la coerenza dei dati.
 \subsection{Generazione delle tabelle SQL}
 
 
-\subsection{Popolamento del database}
+\subsection{Popolamento del database} \label{subsec:popolamento}
 
-\subsection{Trigger}
+\subsection{Trigger} \label{subsec:trigger-citazioni}
 \subsubsection*{Trigger per l'aggiornamento del numero di citazioni}
 \textbf{Non Autocitazione}: Una pubblicazione non può citare sé stessa. Questo è il vincolo più elementare e serve a prevenire l'inserimento di dati logicamente inconsistenti, garantendo che il conteggio delle citazioni rifletta solo i riferimenti esterni.\\
 \textbf{Non Citazione Circolare}: Una pubblicazione A non può citare una pubblicazione B se B cita già A, direttamente o indirettamente. Questo vincolo impedisce la formazione di cicli di citazione che potrebbero distorcere il conteggio delle citazioni e complicare l'analisi bibliometrica.\\
-\textbf{Nota sul Vincolo Temporale}: Una pubblicazione non può citare un'altra pubblicazione con un anno di pubblicazione successivo. Pur riconoscendo l'esistenza di casi come i preprint nel mondo reale, per coerenza logica del modello e per semplicità, questo vincolo è assunto come rilevante e implementato nel database.\\
+\textbf{Nota sul Vincolo Temporale}: Una pubblicazione non può citare un'altra pubblicazione con un anno di pubblicazione successivo. Riconoscendo l'esistenza di casi come i preprint nel mondo reale questo vincolo è assunto come irrilevante e non viene implementato nel database.\\
 
-\section{Query}
+\section{Query} \label{sec:query}
+Di seguito vengono presentate le query SQL per rispondere alle domande specifiche richieste
 
-\begin{enumerate}[label=\textbf{OP\arabic*}, start=5, leftmargin=1.5cm]
+\begin{enumerate}[label=\textbf{Q\arabic*}, start=1, leftmargin=1.5cm]
     \item \textbf{Autore con più pubblicazioni per affiliazione} \\
     Stampare il nome dell'autore che detiene il maggior numero di pubblicazioni per ogni singola affiliazione.
     
@@ -373,7 +420,7 @@ Si noti che le chiavi primarie sono state definite in modo da garantire l'univoc
     Trovare gli autori che hanno pubblicato esclusivamente articoli i quali, a distanza di 2 anni dalla data di pubblicazione, hanno accumulato almeno 5 citazioni.
 \end{enumerate}
 
-\subsection*{OP5: Autore con più pubblicazioni per ogni affiliazione}
+\subsection*{Q1: Autore con più pubblicazioni per ogni affiliazione}
 \begin{lstlisting}
 SELECT a.nome, a.cognome, aa.nome_affiliazione
 FROM AUTORE a
@@ -393,7 +440,7 @@ HAVING COUNT(pa.codice_pubblicazione) = (
 );
 \end{lstlisting}
 
-\subsection*{OP6: Coppie che hanno pubblicato sempre e solo insieme}
+\subsection*{Q2: Coppie che hanno pubblicato sempre e solo insieme}
 \begin{lstlisting}
 SELECT pa1.id_autore, pa2.id_autore
 FROM PUBB_AUTORE pa1
@@ -415,7 +462,7 @@ AND COUNT(DISTINCT pa2.codice_pubblicazione) = (
 
 \newpage
 
-\subsection*{OP7: Autori che non hanno mai pubblicato con colleghi di altre affiliazioni}
+\subsection*{Q3: Autori che non hanno mai pubblicato con colleghi di altre affiliazioni}
 \textit{Un autore è valido se NON esiste nessuna pubblicazione in cui ha collaborato con un autore di affiliazione diversa.}
 \begin{lstlisting}
 SELECT a.id, a.nome, a.cognome
@@ -435,7 +482,7 @@ WHERE NOT EXISTS (
 );
 \end{lstlisting}
 
-\subsection*{OP8: Autori con solo articoli di successo (min. 5 citazioni a 2 anni)}
+\subsection*{Q4: Autori con solo articoli di successo (min. 5 citazioni a 2 anni)}
 \begin{lstlisting}
 SELECT a.id, a.nome, a.cognome
 FROM public.autore a
@@ -469,5 +516,5 @@ Il limite risiede nella natura stessa dell'attributo ridondante:
 \end{itemize}
 
 Di conseguenza, per soddisfare il requisito, è necessario ignorare il valore pre-calcolato ed effettuare un calcolo dinamico accedendo direttamente alla relazione \texttt{CITAZIONI}. Questo processo permette di confrontare gli attributi \texttt{Anno} della pubblicazione citante e di quella citata, operazione indispensabile per isolare il sottoinsieme di riferimenti bibliografici pertinenti all'analisi richiesta.
-
+\section{Conclusioni} \label{sec:conclusioni}
 \end{document}
