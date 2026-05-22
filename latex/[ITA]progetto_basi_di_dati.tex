@@ -554,11 +554,11 @@ INSERT INTO public.editore (nome, indirizzo_fisico) VALUES
 
 -- 3. Inserimento di 40 Autori (Cognomi tipici del Triveneto/FVG)
 INSERT INTO public.autore (id, nome, cognome, email, sitoweb) VALUES
-(1, 'Andrea', 'Visintin', 'a.visintin@uniud.it', 'www.uniud.it/avisintin'),
-(2, 'Chiara', 'Furlan', 'c.furlan@uniud.it', 'www.uniud.it/cfurlan'),
-(3, 'Marco', 'Zanon', 'm.zanon@uniud.it', 'www.uniud.it/mzanon'),
+(1, 'Luigi', 'Pascu', 'l.pascu@uniud.it', 'www.uniud.it/lpascu'),
+(2, 'Federico', 'Del Pup', 'f.delpup@uniud.it', 'www.uniud.it/fdelPup'),
+(3, 'Matteo', 'Passador', 'm.passador@uniud.it', 'www.uniud.it/mpassador'),
 (4, 'Giulia', 'Morandini', 'g.morandini@uniud.it', 'www.uniud.it/gmorandini'),
-(5, 'Stefano', 'Mattioli', 's.mattioli@uniud.it', 'www.uniud.it/smattioli'),
+(5, 'Stefano', 'Toneguzzo', 's.toneguzzo@uniud.it', 'www.uniud.it/stoneguzzo'),
 (6, 'Luca', 'Braidotti', 'l.braidotti@units.it', 'www.units.it/lbraidotti'),
 (7, 'Elena', 'Vascotto', 'e.vascotto@units.it', 'www.units.it/evascotto'),
 (8, 'Paolo', 'Zuliani', 'p.zuliani@units.it', 'www.units.it/pzuliani'),
@@ -632,7 +632,7 @@ INSERT INTO public.pubblicazione (codice, titolo, annopubblicazione, ncitazioni,
 (19, 'Nuovi recettori nelle cellule tumorali epatiche', 2021, 134, 14),
 (20, 'Efficienza energetica nei data center', 2022, 60, 200),
 -- da 21 a 70 ometto i titoli a mano ed eseguo una generazione rapida coerente
-(21, 'Tesi in Deep Learning e Visione Artificiale', 2022, 5, 110),
+(21, 'Tesi in Progetto di Basi di Dati', 2026, 5, 0),
 (22, 'Tesi: Reti neurali per la sismologia', 2023, 2, 95),
 (23, 'Tesi sulle correnti del Golfo di Trieste', 2021, 8, 130),
 (24, 'Tesi in Ingegneria Clinica applicata', 2020, 12, 105),
@@ -746,15 +746,21 @@ END $$;
 -- 9. Collegamento Pubblicazioni - Autori (Esattamente 1, 2 o 3 autori per pubblicazione)
 -- Primo autore (assegnato a tutti e 70)
 INSERT INTO public.pubb_autore (codice_pubblicazione, id_autore)
-SELECT codice, (codice % 40) + 1 FROM public.pubblicazione;
+SELECT codice, (codice % 40) + 1 FROM public.pubblicazione WHERE codice > 5;
+
+INSERT INTO public.pubb_autore (codice_pubblicazione, id_autore) VALUES
+    (21,1),
+    (21,2),
+    (21,3),
+    (21,5);
 
 -- Secondo autore (assegnato solo se il codice e pari)
 INSERT INTO public.pubb_autore (codice_pubblicazione, id_autore)
-SELECT codice, ((codice + 1) % 40) + 1 FROM public.pubblicazione WHERE codice % 2 = 0;
+SELECT codice, ((codice + 1) % 40) + 1 FROM public.pubblicazione WHERE codice % 2 = 0 AND codice > 5;
 
 -- Terzo autore (assegnato solo se il codice e divisibile per 3)
 INSERT INTO public.pubb_autore (codice_pubblicazione, id_autore)
-SELECT codice, ((codice + 2) % 40) + 1 FROM public.pubblicazione WHERE codice % 3 = 0;
+SELECT codice, ((codice + 2) % 40) + 1 FROM public.pubblicazione WHERE codice % 3 = 0 AND codice > 5;
 
 -- 10. Inserimento di 3 Citazioni esatte per ogni Pubblicazione (totale 210)
 -- Utilizzo dell'aritmetica modulare per fare in modo che la pubbl. X citi X+1, X+2 e X+3 in modo circolare.
@@ -769,17 +775,427 @@ SELECT codice, ((codice + 2) % 70) + 1 FROM public.pubblicazione;
 \end{lstlisting}
 
 Le tabelle risultanti sono di conseguenza così:
+
+% ============================================================
+% AFFILIAZIONE
+% ============================================================
 \begin{table}[H]
 \centering
-\caption{Dettagli delle Affiliazioni Universitarie}
-\begin{tabular}{cccc}
+\caption{Affiliazione}
+\small
+\begin{tabular}{llll}
 \toprule
 \multicolumn{4}{c}{\textbf{Affiliazione}} \\
 \midrule
 \textbf{Nome} & \textbf{Telefono} & \textbf{Indirizzo} & \textbf{Tipo} \\
 \midrule
-Università degli Studi di Udine & 0432-556111 & Via Palladio 8, Udine & Università \\
-Università di Trieste & 0432-556112 & Piazzale Europa 1, Trieste & Università \\
+Università degli Studi di Udine   & 0432-556111 & Via Palladio 8, Udine              & Università      \\
+Università degli Studi di Trieste & 040-5587111 & Piazzale Europa 1, Trieste         & Università      \\
+SISSA                             & 040-3787111 & Via Bonomea 265, Trieste           & Università      \\
+Università degli Studi di Padova  & 049-8275111 & Via 8 Febbraio 2, Padova           & Università      \\
+Università Ca' Foscari Venezia    & 041-2345111 & Dorsoduro 3246, Venezia            & Università      \\
+Area Science Park                 & 040-3755111 & Padriciano 99, Trieste             & Ente di ricerca \\
+OGS                               & 040-21401   & Borgo Grotta Gigante 42/C, Sgonico & Ente di ricerca \\
+CRO Aviano                        & 0434-659111 & Via Franco Gallini 2, Aviano       & Ente di ricerca \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% EDITORE
+% ============================================================
+\begin{table}[H]
+\centering
+\caption{Editore}
+\begin{tabular}{ll}
+\toprule
+\multicolumn{2}{c}{\textbf{Editore}} \\
+\midrule
+\textbf{Nome} & \textbf{Indirizzo Fisico} \\
+\midrule
+Forum Editrice Universitaria Udinese & Via Palladio 8, Udine          \\
+EUT Edizioni Università di Trieste   & Via Edoardo Weiss 21, Trieste  \\
+CLEUP                                & Via G. Belzoni 118, Padova     \\
+Il Mulino                            & Strada Maggiore 37, Bologna    \\
+Springer                             & Via Decembrio 28, Milano       \\
+IEEE                                 & 3 Park Avenue, New York        \\
+Elsevier                             & Radarweg 29, Amsterdam         \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% AUTORE (tabella divisa in due per spazio)
+% ============================================================
+\begin{table}[H]
+\centering
+\caption{Autore (ID 1--20)}
+\small
+\begin{tabular}{clllll}
+\toprule
+\multicolumn{6}{c}{\textbf{Autore}} \\
+\midrule
+\textbf{ID} & \textbf{Nome} & \textbf{Cognome} & \textbf{Email} & \textbf{Sito Web} \\
+\midrule
+1  & Luigi     & Pascu   & l.pascu@uniud.it  & www.uniud.it/lpascu  \\
+2  & Federico     & Del Pup     & f.delpup@uniud.it    & www.uniud.it/fdelPup    \\
+3  & Matteo     & Passador      & m.passador@uniud.it     & www.uniud.it/mpassador     \\
+4  & Giulia     & Morandini  & g.morandini@uniud.it & www.uniud.it/gmorandini \\
+5  & Stefano    & Toneguzzo   & s.toneguzzo@uniud.it  & www.uniud.it/stoneguzzo  \\
+6  & Luca       & Braidotti  & l.braidotti@units.it & www.units.it/lbraidotti \\
+7  & Elena      & Vascotto   & e.vascotto@units.it  & www.units.it/evascotto  \\
+8  & Paolo      & Zuliani    & p.zuliani@units.it   & www.units.it/pzuliani   \\
+9  & Francesca  & Beltrame   & f.beltrame@units.it  & www.units.it/fbeltrame  \\
+10 & Matteo     & Trevisan   & m.trevisan@units.it  & www.units.it/mtrevisan  \\
+11 & Anna       & Ferrari    & a.ferrari@sissa.it   & www.sissa.it/aferrari   \\
+12 & Roberto    & Russo      & r.russo@sissa.it     & www.sissa.it/rrusso     \\
+13 & Silvia     & Esposito   & s.esposito@sissa.it  & www.sissa.it/sesposito  \\
+14 & Davide     & Colombo    & d.colombo@sissa.it   & www.sissa.it/dcolombo   \\
+15 & Marta      & Ricci      & m.ricci@sissa.it     & www.sissa.it/mricci     \\
+16 & Giovanni   & Sartori    & g.sartori@unipd.it   & www.unipd.it/gsartori   \\
+17 & Laura      & Pavan      & l.pavan@unipd.it     & www.unipd.it/lpavan     \\
+18 & Alessandro & Basso      & a.basso@unipd.it     & www.unipd.it/abasso     \\
+19 & Federica   & Carraro    & f.carraro@unipd.it   & www.unipd.it/fcarraro   \\
+20 & Riccardo   & Zanella    & r.zanella@unipd.it   & www.unipd.it/rzanella   \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Autore (ID 21--40)}
+\small
+\begin{tabular}{clllll}
+\toprule
+\multicolumn{6}{c}{\textbf{Autore}} \\
+\midrule
+\textbf{ID} & \textbf{Nome} & \textbf{Cognome} & \textbf{Email} & \textbf{Sito Web} \\
+\midrule
+21 & Sara      & Vianello    & s.vianello@unive.it              & www.unive.it/svianello              \\
+22 & Giacomo   & Scarpa      & g.scarpa@unive.it                & www.unive.it/gscarpa                \\
+23 & Martina   & Boscolo     & m.boscolo@unive.it               & www.unive.it/mboscolo               \\
+24 & Filippo   & Zennaro     & f.zennaro@unive.it               & www.unive.it/fzennaro               \\
+25 & Elisa     & Niero       & e.niero@unive.it                 & www.unive.it/eniero                 \\
+26 & Nicola    & De Luca     & n.deluca@area.it                 & www.areasciencepark.it/ndeluca      \\
+27 & Valeria   & Costa       & v.costa@area.it                  & www.areasciencepark.it/vcosta       \\
+28 & Simone    & Giordano    & s.giordano@area.it               & www.areasciencepark.it/sgiordano    \\
+29 & Ilaria    & Rizzo       & i.rizzo@area.it                  & www.areasciencepark.it/irizzo       \\
+30 & Enrico    & Lombardi    & e.lombardi@area.it               & www.areasciencepark.it/elombardi    \\
+31 & Giorgio   & Borean      & g.borean@ogs.it                  & www.ogs.it/gborean                  \\
+32 & Valentina & Daneluzzi   & v.daneluzzi@ogs.it               & www.ogs.it/vdaneluzzi               \\
+33 & Massimo   & Lazzari     & m.lazzari@ogs.it                 & www.ogs.it/mlazzari                 \\
+34 & Alice     & Sgobaro     & a.sgobaro@ogs.it                 & www.ogs.it/asgobaro                 \\
+35 & Daniele   & Paoletti    & d.paoletti@ogs.it                & www.ogs.it/dpaoletti                \\
+36 & Umberto   & Tirelli     & u.tirelli@cro.it                 & www.cro.it/utirelli                 \\
+37 & Lucia     & Carbone     & l.carbone@cro.it                 & www.cro.it/lcarbone                 \\
+38 & Pietro    & Veronesi    & p.veronesi@cro.it                & www.cro.it/pveronesi                \\
+39 & Tiziana   & Aviano      & t.aviano@cro.it                  & www.cro.it/taviano                  \\
+40 & Claudio   & Franceschi  & c.franceschi@cro.it              & www.cro.it/cfranceschi              \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% PUBBLICAZIONE (tabella divisa per spazio -- solo prime 20 e seconde 20, ecc.)
+% ============================================================
+\begin{table}[H]
+\centering
+\caption{Pubblicazione (codice 1--35)}
+\small
+\begin{tabular}{clccc}
+\toprule
+\multicolumn{5}{c}{\textbf{Pubblicazione}} \\
+\midrule
+\textbf{Cod.} & \textbf{Titolo} & \textbf{Anno} & \textbf{N. Citazioni} & \textbf{N. Pagine} \\
+\midrule
+1  & Geologia del Carso Triestino                            & 2018 & 120 & 250 \\
+2  & Biotecnologie per la viticoltura del Collio             & 2020 &  45 & 180 \\
+3  & Fisica Quantistica e Buchi Neri                         & 2021 & 300 &  15 \\
+4  & Terapie sperimentali oncologiche al CRO                 & 2019 &  89 &  12 \\
+5  & Sismologia e monitoraggio delle Alpi Giulie             & 2022 &  34 &  25 \\
+6  & Machine Learning applicato alla Laguna di Venezia       & 2021 & 150 &  10 \\
+7  & L'economia del Nord-Est post pandemia                   & 2023 &  12 & 210 \\
+8  & Evoluzione della fauna marina nell'Alto Adriatico       & 2017 &  76 &  20 \\
+9  & Storia della Repubblica di Venezia e i suoi traffici   & 2015 &  45 & 320 \\
+10 & Ottimizzazione logistica del Porto di Trieste           & 2022 &  54 &  18 \\
+11 & Algoritmi predittivi per il dissesto idrogeologico      & 2020 & 110 &  14 \\
+12 & Analisi del genoma dei vitigni autoctoni friulani       & 2018 &  67 & 120 \\
+13 & Modelli matematici per fluidodinamica navale            & 2019 &  23 & 200 \\
+14 & Studio sull'inquinamento da microplastiche in Adriatico & 2021 & 210 &  15 \\
+15 & Innovazioni nella robotica chirurgica                   & 2023 &  45 &  10 \\
+16 & Nanomateriali per lo stoccaggio energetico              & 2016 & 320 &  18 \\
+17 & Letteratura friulana del Novecento                      & 2018 &  15 & 180 \\
+18 & La bora: modelli meteorologici di precisione            & 2020 &  44 &  22 \\
+19 & Nuovi recettori nelle cellule tumorali epatiche         & 2021 & 134 &  14 \\
+20 & Efficienza energetica nei data center                   & 2022 &  60 & 200 \\
+21 & Tesi in Deep Learning e Visione Artificiale             & 2022 &   5 & 110 \\
+22 & Tesi: Reti neurali per la sismologia                    & 2023 &   2 &  95 \\
+23 & Tesi sulle correnti del Golfo di Trieste                & 2021 &   8 & 130 \\
+24 & Tesi in Ingegneria Clinica applicata                    & 2020 &  12 & 105 \\
+25 & Tesi: Il dialetto triestino nell'epoca moderna          & 2019 &   3 & 150 \\
+26 & Tesi sull'impatto ambientale delle grandi navi          & 2021 &  15 & 140 \\
+27 & Tesi: Materiali compositi in campo aerospaziale         & 2022 &   1 &  90 \\
+28 & Tesi in fisica delle particelle                         & 2023 &   4 & 115 \\
+29 & Tesi: La filiera del legno in Carnia                    & 2018 &   6 & 120 \\
+30 & Tesi: Big Data per la sanità pubblica regionale         & 2020 &   9 & 100 \\
+31 & Articolo: Reti 5G nel contesto urbano                   & 2021 &  55 &   8 \\
+32 & Articolo: Cybersecurity per le PMI venete               & 2022 &  42 &  12 \\
+33 & Articolo: Impatto del cambiamento climatico sui ghiacciai & 2019 & 180 & 15 \\
+34 & Articolo: Marcatori biologici predittivi                & 2020 &  95 &  10 \\
+35 & Articolo: Modelli di previsione delle maree             & 2023 &  30 &  14 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Pubblicazione (codice 36--70)}
+\small
+\begin{tabular}{clccc}
+\toprule
+\multicolumn{5}{c}{\textbf{Pubblicazione}} \\
+\midrule
+\textbf{Cod.} & \textbf{Titolo} & \textbf{Anno} & \textbf{N. Citazioni} & \textbf{N. Pagine} \\
+\midrule
+36 & Articolo: Agricoltura di precisione in Veneto    & 2021 &  25 &   9 \\
+37 & Articolo: Restauro architettonico a Venezia      & 2018 &  14 &  11 \\
+38 & Articolo: Smart cities: il caso Padova           & 2020 &  68 &  16 \\
+39 & Articolo: Biologia marina del Golfo              & 2017 &  41 &  13 \\
+40 & Articolo: Supercalcolo per la meteorologia       & 2022 & 112 &   8 \\
+41 & Articolo: Fisica dello stato solido              & 2016 & 205 &  12 \\
+42 & Articolo: Evoluzione genetica dei lieviti        & 2019 &  38 &   9 \\
+43 & Articolo: Elettronica di potenza                 & 2021 &  47 &  10 \\
+44 & Articolo: Internet of Things in ambito biomedicale & 2022 & 89 & 14 \\
+45 & Articolo: Economia circolare nel Triveneto       & 2020 &  56 &  15 \\
+46 & Articolo: Sviluppo di vaccini a mRNA             & 2023 & 140 &  11 \\
+47 & Articolo: Automazione industriale                & 2018 &  33 &  12 \\
+48 & Articolo: Diritto commerciale internazionale     & 2019 &  12 &  18 \\
+49 & Articolo: Astrofisica stellare                   & 2021 &  98 &  15 \\
+50 & Articolo: Bioinformatica applicata               & 2022 &  77 &  10 \\
+51 & Articolo: Nuovi polimeri biodegradabili          & 2020 &  45 &   9 \\
+52 & Articolo: Storia dell'arte paleocristiana        & 2017 &   8 &  14 \\
+53 & Articolo: Trattamento acque reflue industriali   & 2021 &  31 &  11 \\
+54 & Articolo: Gestione delle foreste dolomitiche     & 2019 &  22 &  13 \\
+55 & Articolo: Microelettronica quantistica           & 2023 & 156 &   8 \\
+56 & Articolo: Analisi del rischio sismico            & 2016 &  88 &  16 \\
+57 & Articolo: Terapia genica oncologica              & 2022 & 110 &  12 \\
+58 & Articolo: Modelli linguistici italiani           & 2023 & 210 &  14 \\
+59 & Articolo: Psicologia cognitiva clinica           & 2018 &  45 &  10 \\
+60 & Articolo: Glottologia friulana                   & 2019 &  16 &  15 \\
+61 & Articolo: Fotovoltaico ad alta efficienza        & 2021 &  67 &   9 \\
+62 & Articolo: Nanotecnologie mediche                 & 2020 & 130 &  11 \\
+63 & Articolo: Archeologia ad Aquileia                & 2017 &  25 &  18 \\
+64 & Articolo: Logistica multimodale                  & 2022 &  43 &  12 \\
+65 & Articolo: Ingegneria tissutale                   & 2021 &  84 &  10 \\
+66 & Articolo: Rilevamento satellitare                & 2019 &  58 &  14 \\
+67 & Articolo: Geopolitica balcanica                  & 2023 &  33 &  11 \\
+68 & Articolo: Neuroscienze computazionali            & 2020 & 105 &  13 \\
+69 & Articolo: Fluidodinamica computazionale          & 2021 &  72 &  15 \\
+70 & Articolo: Economia comportamentale               & 2022 &  41 &  10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% LIBRO
+% ============================================================
+\begin{table}[H]
+\centering
+\caption{Libro}
+\small
+\begin{tabular}{cll}
+\toprule
+\multicolumn{3}{c}{\textbf{Libro}} \\
+\midrule
+\textbf{Cod. Pubblicazione} & \textbf{ISBN} & \textbf{Editore} \\
+\midrule
+1  & 978-8815123456 & Forum Editrice Universitaria Udinese \\
+2  & 978-8815123457 & Forum Editrice Universitaria Udinese \\
+3  & 978-8815123458 & Springer                             \\
+4  & 978-8815123459 & Elsevier                             \\
+5  & 978-8815123460 & EUT Edizioni Università di Trieste   \\
+6  & 978-8815123461 & IEEE                                 \\
+7  & 978-8815123462 & Il Mulino                            \\
+8  & 978-8815123463 & Springer                             \\
+9  & 978-8815123464 & Il Mulino                            \\
+10 & 978-8815123465 & CLEUP                                \\
+11 & 978-8815123466 & Springer                             \\
+12 & 978-8815123467 & Forum Editrice Universitaria Udinese \\
+13 & 978-8815123468 & EUT Edizioni Università di Trieste   \\
+14 & 978-8815123469 & Elsevier                             \\
+15 & 978-8815123470 & Springer                             \\
+16 & 978-8815123471 & IEEE                                 \\
+17 & 978-8815123472 & Forum Editrice Universitaria Udinese \\
+18 & 978-8815123473 & EUT Edizioni Università di Trieste   \\
+19 & 978-8815123474 & Elsevier                             \\
+20 & 978-8815123475 & IEEE                                 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% TESI
+% ============================================================
+\begin{table}[H]
+\centering
+\caption{Tesi}
+\begin{tabular}{cll}
+\toprule
+\multicolumn{3}{c}{\textbf{Tesi}} \\
+\midrule
+\textbf{Cod. Pubblicazione} & \textbf{Argomento} & \textbf{Affiliazione} \\
+\midrule
+21 & Computer Science          & Università degli Studi di Udine   \\
+22 & Sismologia                & OGS                               \\
+23 & Oceanografia              & OGS                               \\
+24 & Bioingegneria             & Università degli Studi di Padova  \\
+25 & Lettere                   & Università degli Studi di Trieste \\
+26 & Scienze Ambientali        & Università Ca' Foscari Venezia    \\
+27 & Ingegneria dei Materiali  & Università degli Studi di Padova  \\
+28 & Fisica                    & SISSA                             \\
+29 & Scienze Agrarie           & Università degli Studi di Udine   \\
+30 & Data Science              & Area Science Park                 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% ARTICOLO (generato dal DO block -- valori deterministici)
+% ============================================================
+\begin{table}[H]
+\centering
+\caption{Articolo (codice 31--70)}
+\small
+\begin{tabular}{cllcll}
+\toprule
+\multicolumn{6}{c}{\textbf{Articolo}} \\
+\midrule
+\textbf{Cod.} & \textbf{Tipo} & \textbf{Nome Venue} & \textbf{N. Volume} & \textbf{Luogo Conf.} & \textbf{Anno Conf.} \\
+\midrule
+31 & Conference & Conferenza AI        &  2 & Venezia  & 2019 \\
+32 & Journal    & Marine Biology J.    &  3 & Roma     & 2020 \\
+33 & Conference & Economics Today      &  4 & Milano   & 2021 \\
+34 & Journal    & IEEE Access          &  5 & Parigi   & 2022 \\
+35 & Conference & Nature               &  6 & Udine    & 2023 \\
+36 & Journal    & Science              &  7 & Trieste  & 2015 \\
+37 & Conference & Conferenza AI        &  8 & Padova   & 2016 \\
+38 & Journal    & Journal of Medicine  &  9 & Venezia  & 2017 \\
+39 & Conference & Marine Biology J.    & 10 & Roma     & 2018 \\
+40 & Journal    & Economics Today      &  1 & Milano   & 2019 \\
+41 & Conference & IEEE Access          &  2 & Parigi   & 2020 \\
+42 & Journal    & Nature               &  3 & Udine    & 2021 \\
+43 & Conference & Science              &  4 & Trieste  & 2022 \\
+44 & Journal    & Conferenza AI        &  5 & Padova   & 2023 \\
+45 & Conference & Journal of Medicine  &  6 & Venezia  & 2015 \\
+46 & Journal    & Marine Biology J.    &  7 & Roma     & 2016 \\
+47 & Conference & Economics Today      &  8 & Milano   & 2017 \\
+48 & Journal    & IEEE Access          &  9 & Parigi   & 2018 \\
+49 & Conference & Nature               & 10 & Udine    & 2019 \\
+50 & Journal    & Science              &  1 & Trieste  & 2020 \\
+51 & Conference & Conferenza AI        &  2 & Padova   & 2021 \\
+52 & Journal    & Journal of Medicine  &  3 & Venezia  & 2022 \\
+53 & Conference & Marine Biology J.    &  4 & Roma     & 2023 \\
+54 & Journal    & Economics Today      &  5 & Milano   & 2015 \\
+55 & Conference & IEEE Access          &  6 & Parigi   & 2016 \\
+56 & Journal    & Nature               &  7 & Udine    & 2017 \\
+57 & Conference & Science              &  8 & Trieste  & 2018 \\
+58 & Journal    & Conferenza AI        &  9 & Padova   & 2019 \\
+59 & Conference & Journal of Medicine  & 10 & Venezia  & 2020 \\
+60 & Journal    & Marine Biology J.    &  1 & Roma     & 2021 \\
+61 & Conference & Economics Today      &  2 & Milano   & 2022 \\
+62 & Journal    & IEEE Access          &  3 & Parigi   & 2023 \\
+63 & Conference & Nature               &  4 & Udine    & 2015 \\
+64 & Journal    & Science              &  5 & Trieste  & 2016 \\
+65 & Conference & Conferenza AI        &  6 & Padova   & 2017 \\
+66 & Journal    & Journal of Medicine  &  7 & Venezia  & 2018 \\
+67 & Conference & Marine Biology J.    &  8 & Roma     & 2019 \\
+68 & Journal    & Economics Today      &  9 & Milano   & 2020 \\
+69 & Conference & IEEE Access          & 10 & Parigi   & 2021 \\
+70 & Journal    & Nature               &  1 & Udine    & 2022 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% AUTO_AFF (Autore-Affiliazione)
+% ============================================================
+\begin{table}[H]
+\centering
+\caption{Auto\_Aff (Autore -- Affiliazione)}
+\small
+\begin{tabular}{cl}
+\toprule
+\multicolumn{2}{c}{\textbf{Auto\_Aff}} \\
+\midrule
+\textbf{ID Autore} & \textbf{Nome Affiliazione} \\
+\midrule
+1--5   & Università degli Studi di Udine   \\
+6--10  & Università degli Studi di Trieste \\
+11--15 & SISSA                             \\
+16--20 & Università degli Studi di Padova  \\
+21--25 & Università Ca' Foscari Venezia    \\
+26--30 & Area Science Park                 \\
+31--35 & OGS                               \\
+36--40 & CRO Aviano                        \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% PUBB_AUTORE (prime righe rappresentative)
+% ============================================================
+\begin{table}[H]
+\centering
+\caption{Pubb\_Autore -- associazioni pubblicazione/autore (estratto rappresentativo)}
+\small
+\begin{tabular}{cc}
+\toprule
+\multicolumn{2}{c}{\textbf{Pubb\_Autore}} \\
+\midrule
+\textbf{Cod. Pubblicazione} & \textbf{ID Autore} \\
+\midrule
+\multicolumn{2}{l}{\textit{1° autore (tutti i codici 1--70): autore = (codice \% 40) + 1}} \\
+\multicolumn{2}{l}{\textit{2° autore (codici pari): autore = ((codice+1) \% 40) + 1}} \\
+\multicolumn{2}{l}{\textit{3° autore (codici multipli di 3): autore = ((codice+2) \% 40) + 1}} \\
+\midrule
+1  & 2  \\
+2  & 3, 4 \\
+3  & 4, 6 \\
+4  & 5, 6, 7 \\
+5  & 6 \\
+6  & 7, 8, 9 \\
+7  & 8 \\
+8  & 9, 10, 11 \\
+9  & 10 \\
+10 & 11, 12, 13 \\
+\multicolumn{2}{c}{$\vdots$} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% CITAZIONE (schema, non enumerata interamente)
+% ============================================================
+\begin{table}[H]
+\centering
+\caption{Citazione -- schema delle 210 triple (estratto)}
+\small
+\begin{tabular}{cc}
+\toprule
+\multicolumn{2}{c}{\textbf{Citazione}} \\
+\midrule
+\textbf{Pubblicazione Citante} & \textbf{Pubblicazione Citata} \\
+\midrule
+\multicolumn{2}{l}{\textit{Ogni pubblicazione $p$ cita $(p \bmod 70)+1$,}} \\
+\multicolumn{2}{l}{\textit{$((p+1) \bmod 70)+1$ e $((p+2) \bmod 70)+1$}} \\
+\midrule
+1 & 2, 3, 4 \\
+2 & 3, 4, 5 \\
+3 & 4, 5, 6 \\
+$\vdots$ & $\vdots$ \\
+68 & 69, 70, 1 \\
+69 & 70, 1, 2 \\
+70 & 1, 2, 3 \\
 \bottomrule
 \end{tabular}
 \end{table}
