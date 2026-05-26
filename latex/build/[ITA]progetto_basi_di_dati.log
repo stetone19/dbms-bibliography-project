@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.24)  26 MAY 2026 15:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.24)  26 MAY 2026 16:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -445,12 +445,177 @@ Underfull \hbox (badness 10000) in paragraph at lines 559--565
 
  []
 
-[17] [18] [19]
-Overfull \hbox (7.05533pt too wide) in paragraph at lines 694--695
+[17]
+Underfull \hbox (badness 2790) in paragraph at lines 635--635
+\T1/cmr/m/n/10.95 una ci-ta-zio-ne ver-so
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 635--635
+\T1/cmr/m/n/10.95 una pub-bli-ca-zio-ne
+ []
+
+
+Underfull \hbox (badness 2809) in paragraph at lines 635--635
+[]|\T1/cmr/bx/n/10.95 Successo\T1/cmr/m/n/10.95 : Tran-sa-
+ []
+
+
+Underfull \hbox (badness 2173) in paragraph at lines 635--635
+[]|\T1/cmr/bx/n/10.95 TC-02: Ca-so di
+ []
+
+
+Underfull \hbox (badness 7504) in paragraph at lines 635--635
+[]|\T1/cmr/m/n/10.95 Tentativo di auto-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 635--635
+\T1/cmr/m/n/10.95 "Una pub-bli-ca-zio-ne
+ []
+
+
+Underfull \hbox (badness 1448) in paragraph at lines 635--635
+[]|\T1/cmr/bx/n/10.95 TC-03: Vio-la-zio-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 635--635
+\T1/cmr/m/n/10.95 "Una pub-bli-ca-zio-
+ []
+
+
+Underfull \hbox (badness 3417) in paragraph at lines 635--635
+\T1/cmr/m/n/10.95 ne può ci-ta-re so-lo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 635--635
+\T1/cmr/m/n/10.95 pub-bli-ca-zio-ni con-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 635--635
+\T1/cmr/m/n/10.95 tem-po-ra-nee o più
+ []
+
+[18] [19]
+Underfull \hbox (badness 2790) in paragraph at lines 748--748
+[]|\T1/cmr/m/n/10.95 Tentativo di in-se-ri-
+ []
+
+
+Underfull \hbox (badness 4792) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 che non è un'i-sti-
+ []
+
+
+Underfull \hbox (badness 1377) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 tu-zio-ne uni-ver-si-ta-ria
+ []
+
+
+Underfull \hbox (badness 1748) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Argomento: 'Bioin-
+ []
+
+
+Underfull \hbox (badness 5924) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Affiliazione in-se-ri-ta:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Affiliazione au-to-ri:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 "Università in-se-ri-ta
+ []
+
+
+Underfull \hbox (badness 1325) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 non cor-ret-ta o non
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+[]|\T1/cmr/bx/n/10.95 TC-07: Di-scor-
+ []
+
+
+Underfull \hbox (badness 2790) in paragraph at lines 748--748
+[]|\T1/cmr/m/n/10.95 Tentativo di in-se-ri-
+ []
+
+
+Underfull \hbox (badness 1748) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Argomento: 'Bioin-
+ []
+
+
+Underfull \hbox (badness 5924) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Affiliazione in-se-ri-ta:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Stu-di di Pa-do-va',
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Affiliazione au-to-ri:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 "Università in-se-ri-ta
+ []
+
+
+Underfull \hbox (badness 1748) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Argomento: 'Bioin-
+ []
+
+
+Underfull \hbox (badness 5924) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Affiliazione in-se-ri-ta:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 Affiliazione au-to-ri:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 748--748
+\T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
+ []
+
+[20] [21]
+Overfull \hbox (7.05533pt too wide) in paragraph at lines 755--756
 []\T1/cmr/m/n/12 Integrità Re-fe-ren-zia-le Com-ples-sa: Nel-le ta-bel-le di as-so-cia-zio-ne \T1/cmtt/m/n/12 PubblicazioneAutore
  []
 
-[20] [21] [22] [23] (c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.aux)
+[22] [23] [24] [25] (c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -461,17 +626,17 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 7514 strings out of 467867
- 114956 string characters out of 5418334
+ 7516 strings out of 467867
+ 115001 string characters out of 5418334
  993090 words of memory out of 5000000
- 36317 multiletter control sequences out of 15000+600000
+ 36319 multiletter control sequences out of 15000+600000
  641629 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,9n,65p,1339b,1901s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,65p,1339b,1901s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0800.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on "c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.pdf" (23 pages, 984926 bytes).
+Output written on "c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.pdf" (25 pages, 1000506 bytes).
 PDF statistics:
- 679 PDF objects out of 1000 (max. 8388607)
+ 720 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

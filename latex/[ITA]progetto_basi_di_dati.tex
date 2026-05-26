@@ -605,8 +605,38 @@ FOR EACH ROW EXECUTE FUNCTION inc_n_citazioni();
 ---
 
 \end{lstlisting}
-\subsubsection{Trigger per la rimozione del numero di citazioni}
 
+\subsubsection*{Test}
+Ecco degli esempi di casi di test per la validazione dei vincoli di integrità sulle citazioni, che coprono scenari di inserimento valido, tentativi di autocitazione e violazioni della coerenza temporale. Si omette per semplicità il codice SQL dei casi di test, di cui si propone la seguente test suite:
+\begin{table}[htbp]
+\centering
+\small
+\caption{Casi di test per la validazione dei vincoli di integrità sulle citazioni.}
+\label{tab:casi_test_citazioni}
+\begin{tabularx}{\textwidth}{X X X X}
+\toprule
+\textbf{ID Test} & \textbf{Scenario / Descrizione} & \textbf{Dati di Input} & \textbf{Risultato Atteso} \\ 
+\midrule
+\textbf{TC-01: Caso Valido} & 
+Inserimento valido di una citazione verso una pubblicazione antecedente. & 
+Pubbl. Citante: 1001 (2024)\newline Pubbl. Citata: 1002 (2022) & 
+\textbf{Successo}: Transazione eseguita e record inserito. \\ 
+\midrule
+\textbf{TC-02: Caso di Autocitazione} & 
+Tentativo di auto-citazione da parte di una pubblicazione. & 
+Pubbl. Citante: 1001 (2024)\newline Pubbl. Citata: 1001 (2024) & 
+\textbf{Errore}:\newline "Una pubblicazione non si può citare da sola" \\ 
+\midrule
+\textbf{TC-03: Violazione della Coerenza Temporale} & 
+Violazione della coerenza temporale (citazione verso il futuro). & 
+Pubbl. Citante: 1001 (2024)\newline Pubbl. Citata: 1003 (2026) & 
+\textbf{Errore}:\newline "Una pubblicazione può citare solo pubblicazioni contemporanee o più vecchie" \\ 
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Trigger per il decremento del numero di citazioni}
+A seguito di una cancellazione di una citazione, è necessario decrementare il numero di citazioni della pubblicazione citata. 
 \begin{lstlisting}
 CREATE TRIGGER trg_ins_CIT
 BEFORE INSERT ON public.citazioni
@@ -633,8 +663,9 @@ FOR EACH ROW EXECUTE FUNCTION dec_n_citazioni();
 
 ---
 \end{lstlisting}
-\subsubsection{Trigger per l'update delle citazioni}
-Il trigger controlla che una pubblicazione non si citi da sola e gestisce l'attributo derivato \textbf{NumeroCitazioni}
+
+\subsubsection{Trigger per bloccare l'update delle citazioni}
+Il trigger non permette l'aggiornamento delle citazioni. O si inserisce una nuova citazione o si elimina quella vecchia, ma non si può modificare una citazione esistente. Questo è un vincolo logico che serve a mantenere la coerenza dei dati e a prevenire modifiche che potrebbero alterare in modo non tracciabile il conteggio delle citazioni.
 \begin{lstlisting}
 -- 3. TRIGGER PER BLOCCARE L'UPDATE
 CREATE OR REPLACE FUNCTION updt_citazioni()
@@ -687,6 +718,36 @@ CREATE OR REPLACE TRIGGER trg_TESI
 BEFORE INSERT OR UPDATE ON TESI
 FOR EACH ROW EXECUTE FUNCTION check_uni();
 \end{lstlisting}
+
+\subsubsection*{Test}
+Ecco alcuni casi di test per validare il corretto funzionamento del trigger \texttt{trg\_TESI}, che verifica l'associazione corretta tra tesi, affiliazione universitaria e autori. La test suite include scenari di inserimento valido, tentativi di inserimento con affiliazioni non universitarie e casi in cui l'affiliazione universitaria non è collegata a nessun autore della tesi.
+\begin{table}[htbp]
+\centering
+\small
+\caption{Casi di test per la validazione dei vincoli di integrità e affiliazione delle Tesi.}
+\label{tab:casi_test_tesi}
+\begin{tabularx}{\textwidth}{X X X X}
+\toprule
+\textbf{ID Test} & \textbf{Scenario / Descrizione} & \textbf{Dati di Input} & \textbf{Risultato Atteso} \\ 
+\midrule
+\textbf{TC-06: Affiliazione non universitaria} & 
+Tentativo di inserire una tesi indicando un'affiliazione censita nel sistema, ma che non è un'istituzione universitaria (bensì un Ente di Ricerca). & 
+Cod. Pubblicazione: 4001\newline Argomento: 'Bioinformatica applicata'\newline Affiliazione inserita: 'CRO Aviano'\newline Affiliazione autori: 'CRO Aviano' & 
+\textbf{Errore}:\newline "Università inserita non corretta o non presente nel db" \\ 
+\midrule
+\textbf{TC-07: Discordanza di affiliazioni} & 
+Tentativo di inserire una tesi indicando un'Università valida nel sistema, ma alla quale nessun autore della pubblicazione risulta affiliato. & 
+Cod. Pubblicazione: 4001\newline Argomento: 'Bioinformatica applicata'\newline Affiliazione inserita: 'Università degli Studi di Padova', 'SISSA'\newline Affiliazione autori: 'Università degli Studi di Udine' & 
+\textbf{Errore}:\newline "Università inserita non è affiliata neanche ad un autore" \\ 
+\midrule
+\textbf{TC-08: Caso Valido} & 
+Inserimento valido di una tesi in cui l'università indicata è corretta e coincide con l'affiliazione di almeno un autore. & 
+Cod. Pubblicazione: 4001\newline Argomento: 'Bioinformatica applicata'\newline Affiliazione inserita: 'Università degli Studi di Udine'\newline Affiliazione autori: 'Università degli Studi di Udine' & 
+\textbf{Successo}:\newline Transazione eseguita e record inserito nella tabella \texttt{tesi}. \\ 
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \subsubsection{Implementazione di trigger esterni alla richiesta}
 Per garantire l'integrità dei dati all'interno del database, sono stati implementati altri trigger esclusi dalla richiesta:
 \begin{itemize}
@@ -800,13 +861,13 @@ AND NOT EXISTS (
 );
 \end{lstlisting}
 
-\paragraph{Nota sull'inefficacia dell'attributo derivato nella query OP8:}
+\paragraph{Nota sull'inefficacia dell'attributo derivato nella query Q4:}
 Nonostante la presenza dell'attributo derivato \texttt{NumeroCitazioni} nell'entità \textbf{PUBBLICAZIONE} --- introdotto per ottimizzare la stampa dei dati generali (\textit{OP1}) --- esso risulta inutilizzabile ai fini della query \textbf{OP8} (\textit{Analisi dell'impatto a breve termine}).
 
 Il limite risiede nella natura stessa dell'attributo ridondante:
 \begin{itemize}
     \item \textbf{Staticità del dato:} L'attributo memorizza esclusivamente il conteggio totale e cumulativo delle citazioni ricevute fino all'istante attuale.
-    \item \textbf{Vincolo Temporale Dinamico:} La specifica della \textit{OP8} richiede il filtraggio delle sole citazioni avvenute entro un arco temporale di \textbf{due anni} dalla data di rilascio della pubblicazione.
+    \item \textbf{Vincolo Temporale Dinamico:} La specifica della \textit{Q4} richiede il filtraggio delle sole citazioni avvenute entro un arco temporale di \textbf{due anni} dalla data di rilascio della pubblicazione.
 \end{itemize}
 
 Di conseguenza, per soddisfare il requisito, è necessario ignorare il valore pre-calcolato ed effettuare un calcolo dinamico accedendo direttamente alla relazione \texttt{CITAZIONI}. Questo processo permette di confrontare gli attributi \texttt{Anno} della pubblicazione citante e di quella citata, operazione indispensabile per isolare il sottoinsieme di riferimenti bibliografici pertinenti all'analisi richiesta.
