@@ -69,7 +69,7 @@ Università & Luogo di discussione della tesi & Tesi \\
 \subsubsection{Frasi di carattere generale}
 Si supponga di aver collezionato il seguente insieme di requisiti per la progettazione di una base di dati relazionale per la gestione di una bibliografia. Una bibliografia è costituita da un insieme di pubblicazioni.
 
-\subsubsection{Dettaglio dei requisiti}
+\subsubsection{Dettaglio dei requisiti su specifiche entità e relazioni}
 \begin{itemize}[label=\textbullet]
     \item \textbf{Pubblicazioni:} Ogni pubblicazione è caratterizzata da un codice univoco, un titolo, un anno di pubblicazione e uno o più autori. È presente una lista di riferimenti bibliografici (citazioni) verso altre pubblicazioni della bibliografia. Ogni pubblicazione tiene traccia del numero di citazioni ricevute.
     
@@ -89,45 +89,55 @@ Si supponga di aver collezionato il seguente insieme di requisiti per la progett
     
     \item \textbf{Università:} Identificate univocamente dal nome, includono indirizzo e telefono.
 \end{itemize}
+\subsubsection{Requisiti operazionali}
+Le operazioni più frequenti che il sistema dovrà gestire includono:
+\begin{itemize}[label=\textbullet]
+    \item OP1: Stampa delle pubblicazioni, inclusi titolo, autori, anno e numero di citazioni. La frequenza stimata è di 500 volte al giorno, tenendo conto che ci sono periodi di intensa attività accademica (ad esempio, durante le sessioni di esami o le scadenze per la pubblicazione) in cui la richiesta di consultazione delle pubblicazioni aumenta significativamente.
+    \item OP2: Inserimento di una nuova pubblicazione, con la possibilità di aggiornare i dati e le citazioni. Queste attività sono stimate a circa 40 volte al giorno, considerando che la pubblicazione di nuovi lavori accademici avviene con una certa regolarità, ma non in modo eccessivamente frequente.
+    \item OP3: Inserimento di un nuovo autore, con la possibilità di associare affiliazioni. Qui si stimano circa 10 inserimenti al giorno, poiché l'aggiunta di nuovi autori avviene principalmente quando nuovi ricercatori entrano nel sistema o quando si registrano collaborazioni con autori già esistenti.
+    \item OP4: Modifica dell'affiliazione di un autore. Abbiamo stimato una frequenza di 1 volta al giorno per questa operazione, poiché i cambiamenti di affiliazione accademica sono relativamente rari rispetto ad altre operazioni, ma è comunque importante gestirli correttamente per mantenere l'accuratezza dei dati.
+\end{itemize} 
 
 \section{Progettazione concettuale} \label{sec:progettazione-concettuale}
 Lo schema Entità-Relazione è stato progettato per rappresentare in modo fedele e completo il dominio della bibliografia accademica, tenendo conto dei requisiti specifici e delle relazioni complesse tra le entità coinvolte. Di seguito viene presentata una descrizione dettagliata delle principali componenti dello schema ER, con particolare attenzione alla gestione delle entità e delle relazioni più rilevanti. Lo schema è stato costruito utilizzando una tecnica bottom-up, partendo dalle entità singole e dalle relazioni più semplici, per poi integrare progressivamente le specializzazioni e le associazioni più complesse. Si segnala che nello schema ER, le citazioni sono rappresentate come una relazione ricorsiva tra le pubblicazioni.
 \subsection{Gestione dell'entità Pubblicazione e delle sue specializzazioni} \label{subsec:pubblicazione}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/Pubblicazione.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/SPUB.pdf} % image file path
     \caption{Entità Pubblicazione e specializzazioni}
     \label{fig:label_immagine}
 \end{figure}
 
 L'entità \textbf{Pubblicazione} è stata modellata come un'entità genitore con tre specializzazioni: \textbf{Articolo}, \textbf{Libro} e \textbf{Tesi}. Questa scelta è motivata dalla necessità di rappresentare in modo chiaro e strutturato le differenze tra i vari tipi di pubblicazione, che presentano attributi specifici e relazioni distinte con altre entità (ad esempio, l'editore per i libri e l'università per le tesi). La specializzazione è stata implementata utilizzando una gerarchia a copertura totale, in cui ogni pubblicazione deve essere necessariamente classificata come uno dei tre tipi specifici. L'entità \textbf{Articolo} è ulteriormente specializzata in \textbf{Rivista} e \textbf{Conferenza}, in quanto gestiscono attributi distinti (ad esempio, il numero del volume per le riviste e il luogo della conferenza per gli articoli di conferenza). La specializzazione è totale disgiunta, perchè coprono tutti gli articoli, ma non si sovrappongono tra loro.
 L'entità \textbf{Editore} è collegata all'entità \textbf{Libro} tramite una relazione di pubblicazione, e presenta un attributo composto \textit{Indirizzo} che include via, numero civico, città e nazione. La relazione è uno a molti, in quanto un editore può pubblicare più libri. Infine, come scritto in precedenza, la citazione viene gestita come una relazione ricorsiva tra le pubblicazioni, consentendo di modellare in modo efficace le dinamiche di riferimento bibliografico all'interno del sistema. 
+\\Assumiamo che il nome dell'editore sia univoco nel dominio, visto il contesto regionale a cui facciamo riferimento.
 
 \subsection{Gestione dell'entità Affiliazione e delle sue specializzazioni} \label{subsec:affiliazione}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/Affiliazione.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/SAUT.pdf} % image file path
     \caption{Entità Autore, Affiliazione e specializzazioni}
     \label{fig:label_immagine}
 \end{figure}
 L'entità \textbf{Affiliazione} è stata specializzata in \textbf{Università} ed \textbf{Ente di Ricerca} per rappresentare in modo più dettagliato le diverse tipologie di affiliazioni che un autore può avere. Questa specializzazione è stata implementata utilizzando una gerarchia a copertura parziale, in quanto ci possono essere affiliazioni che non rientrano in nessuna delle due categorie. La scelta di mantenere separate le entità figlie è motivata dalla possibilità di collegare successivamente l'università alle tesi, mentre gli enti di ricerca non hanno questa relazione. L'entità \textbf{Autore} è collegata all'entità \textbf{Affiliazione} tramite una relazione di appartenenza, che consente di modellare il fatto che un autore può essere affiliato a più enti nel tempo. La relazione è molti a molti, in quanto un autore può avere più affiliazioni e un'affiliazione può essere associata a più autori. Non è richiesto di gestire i periodi di appartenenza da parte di un autore a un'affiliazione (storicizzazione), ad esempio se un autore è stato affiliato a un'affiliazione in periodi diversi, non è necessario tenere traccia di queste informazioni.
+\\Come detto per l'editore, assumiamo che il nome dell'affiliazione sia univoco nel dominio, visto il contesto di riferimento.
 \\Si noti che l'entità \textbf{Ente di Ricerca} è stata aggiunta su suggerimento del docente, al fine di rappresentare in modo più completo il dominio delle affiliazioni, che non si limitano esclusivamente alle università, ma includono anche altri tipi di organizzazioni coinvolte nella ricerca accademica.
 \\L'entità \textbf{Autore} non presenta chiavi candidate, in quanto non è specificato dalla richiesta che qualche combinazione di attributi possa fungere da identificatore univoco. 
 
 \subsection{Integrazione dei componenti e schema finale} \label{subsec:integrazione}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SchemaER.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/SER.pdf} % image file path
     \caption{Schema Entità-Relazione}
     \label{fig:label_immagine}
 \end{figure}
 
 Per integrare i componenti prodotti, si crea una relazione molti a molti fra \textbf{Autore} e \textbf{Affiliazione}. Infine si collega l'entità \textbf{Tesi} con l'entità \textbf{Università} tramite una relazione di sede, in quanto ogni tesi è discussa in una specifica università. Questo comporta la creazione di un ciclo problematico, che viene gestito nelle fasi successive perchè potrebbero crearsi incongruenza dei dati. Es. un autore affiliato a un ente di ricerca non può essere associato a una tesi, ma se il ciclo non è gestito potrebbe essere associato a una tesi senza avere coautori affiliati all'università dove ha sede la tesi.
-
+\\ Alcuni vincoli non possono essere risolti tramite lo schema ER. Ad esempio il vincolo di non auto-citazione (una pubblicazione non può citare se stessa) o non-ciclicità (se B cita A, A non può citare B) delle citazioni non può essere gestito a livello di progettazione concettuale, ma sarà necessario implementare dei trigger a livello di progettazione fisica per garantire l'integrità dei dati in questi casi specifici.
 \section{Progettazione logica} \label{sec:progettazione-logica}
 \subsection{Tavola dei volumi} \label{subsec:tavola-volumi}
 
-\begin{tabularx}{\textwidth}{l c r}
+\begin{tabularx}{\textwidth}{X X X}
 \toprule
 \textbf{Concetto} & \textbf{Tipo} & \textbf{Volume} \\
 \midrule
@@ -142,9 +152,9 @@ Editore & E & 150 \\
 Università & E & 35 \\
 Ente di ricerca & E & 100 \\
 \midrule
-Citazione & R & $100.000 \times 20$ \\
-Scritto & R & $3,3 \times 100.000$ \\
-Appartenenza & R & $70.000 \times 2$ \\
+Citazione & R & 2.000.000 ($100.000 \times 20$) \\
+Scritto & R & 330.000 ($3,3 \times 100.000$) \\
+Appartenenza & R & 140.000 ($70.000 \times 2$) \\
 Sede & R & 55.000 \\
 Pubblica & R & 10.000 \\
 \bottomrule
@@ -156,27 +166,26 @@ La tavola dei volumi rappresenta il passaggio fondamentale dalla progettazione c
 
 Con \textbf{70.000 autori} e una media di 3,3 autori per pubblicazione (relazione \texttt{Scritto}), il sistema deve gestire circa 330.000 legami autore-opera. La relazione \texttt{Appartenenza} ($70.000 \times 2$) modella correttamente il turnover accademico, prevedendo che ogni autore sia mediamente affiliato a due enti diversi nel tempo.
 Il numero contenuto di \textbf{Affiliazioni (200)}, \textbf{Editori (150)} e \textbf{Università (35)} suggerisce che queste tabelle fungeranno da "anagrafiche di controllo", con un basso tasso di aggiornamento rispetto alle tabelle transazionali delle pubblicazioni e citazioni. In generale questi volumi sono adatti per un contesto regionale, come quello ipotizzato. Essendo che possono esserci \textbf{Affiliazioni} che non sono né \textbf{Università} né \textbf{Enti di Ricerca}, è stato stimato un numero di 65 affiliazioni che non rientrano in nessuna delle due categorie, portando il totale a 200.
+La stima di 20 citazioni per pubblicazioni è stata effettuata considerando che possano esserci molte pubblicazioni con un altro grado di autoriferimento interno al nostro contesto.
 \subsection{Analisi delle ridondanze} \label{subsec:analisi-ridondanze}
 \subsubsection*{Frequenza delle Operazioni più comuni}
 Ecco una stima della frequenza delle operazioni più comuni che il sistema dovrà gestire, basata su ipotesi ragionevoli e coerenti con il dominio accademico regionale:
 \begin{enumerate}[label=\textbf{OP\arabic*}, start=1, leftmargin=1.5cm]
     \item \textbf{Stampa delle pubblicazioni} \\
-    Frequenza: 200/500 volte al giorno.
+    Frequenza: 500 volte al giorno.
     
-    \item \textbf{Inserimento e Aggiornamento} \\
+    \item \textbf{Inserimento pubblicazioni} \\
     Inserire una pubblicazione (40 volte al giorno). \\
-    Aggiornamento delle citazioni di una pubblicazione (40 volte al giorno)
-
     \item \textbf{Inserire un autore} \\
     Frequenza: 10 volte al giorno.
-
     \item \textbf{Modifica affiliazione} \\
     Frequenza: 1 volta al giorno (frequenza stimata).
 \end{enumerate}
+\subsubsection{Gli attributi ridondanti}
 Gli unici due attributi ridondanti presenti nello schema sono: \texttt{NumeroCitazioni} nell'entità \textbf{Pubblicazione} e \texttt{NumeroPagineTotali} nell'entità \textbf{Articolo}. Si fa un'analisi comparativa tra le due soluzioni per il primo attributo, considerando l'impatto della ridondanza sull'efficienza del sistema, in particolare per le operazioni di stampa e aggiornamento delle citazioni, che sono le più frequenti.
 Per il secondo attributo ridondante, essendo un attributo comune a tutte le sottoentità dell'entità \textbf{Pubblicazione}, si è deciso di mantenerlo. Da qui si è optato di rimuovere l'attributo \texttt{Pagina finale}, in quanto è facilmente calcolabile a partire da \texttt{Pagina iniziale} e \texttt{NumeroPagineTotali}. 
 \subsubsection{Con Ridondanza dell'attributo NumeroCitazioni} 
-Per il calcolo del costo, si assume che un accesso a un'entità o relazione di tipo "L" (lettura) abbia un costo unitario di 1, mentre un accesso di tipo "S" (scrittura) abbia un costo unitario di 2, riflettendo l'overhead aggiuntivo associato alle operazioni di scrittura rispetto a quelle di lettura. 
+Per il calcolo del costo, si assume che un accesso a un'entità o relazione di tipo "L" (lettura) abbia un costo unitario di 1, mentre un accesso di tipo "S" (scrittura) abbia un costo unitario di 2 \textit{(rapporto 1:2)}, riflettendo l'overhead aggiuntivo associato alle operazioni di scrittura rispetto a quelle di lettura. 
 La stima del costo totale è effettuata con il dato di frequenza maggiore per ogni operazione, al fine di valutare l'impatto massimo della ridondanza sull'efficienza del sistema.
 \subsubsection*{Operazione 1}
 \begin{tabular}{llll}
@@ -188,7 +197,7 @@ Pubblicazione & Entità & 1 & L \\
 \end{tabular}
 
 \medskip
-\textbf{Costo:} $(500 \times 1) \times 1 = 500$ unità di costo
+\textbf{Costo:} $(500 \times 1) \times 1 = 500$ unità/giorno
 
 \subsubsection*{Operazione 2}
 \begin{tabular}{llll}
@@ -211,7 +220,7 @@ Autore        & Entità & 1 & S \\
     \item Salvo la coppia pubblicazione autore
 \end{enumerate}
 
-\textbf{Costo:} $(40 \times 4) \times 2 + (40 \times 1) \times 1 = 360$ unità
+\textbf{Costo:} $(40 \times 4) \times 2 + (40 \times 1) \times 1 = 360$ unità/giorno
 
 \subsubsection{Senza Ridondanza dell'attributo NumeroCitazioni} 
 
@@ -229,7 +238,7 @@ Citazione     & Relazione & 20 & L \\
 Stampo i dati relativi ad una pubblicazione. Per ogni pubblicazione, per calcolare il numero di citazioni si accede alla relazione Citazione. Il numero medio di accessi per Pubblicazione è calcolato come: $\frac{\text{volume Citazione}}{\text{volume Pubblicazioni}} = 20$.
 
 \medskip
-\textbf{Costo:} $500 \times (20 + 1) \times 1 = 10.500$ unità di costo
+\textbf{Costo:} $500 \times (20 + 1) \times 1 = 10.500$ unità/giorno
 
 \subsubsection*{Operazione 2}
 \begin{tabular}{llll}
@@ -250,7 +259,7 @@ Autore        & Entità & 1 & S \\
 \end{enumerate}
 
 \medskip
-\textbf{Costo:} $40 \times 3 \times 2 = 240$ unità di costo
+\textbf{Costo:} $40 \times 3 \times 2 = 240$ unità/giorno
 
 \subsubsection{Studio Comparativo} 
 
@@ -350,6 +359,7 @@ CITAZIONI(\underline{PubblicazioneCitante}, \underline{PubblicazioneCitata}) \\
 PUBBLICAZIONEAUTORE(\underline{IDAutore}, \underline{CodicePubblicazione}) \\
 AUTOREAFFILIAZIONE(\underline{IDAutore}, \underline{NomeAffiliazione}) \\
 *le chiavi primarie sono sottolineate, mentre le chiavi esterne sono indicate con frecce.
+
 \textbf{Chiavi esterne:} \\
 $\text{ARTICOLI.CodicePubblicazione} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
 $\text{LIBRI.CodicePubblicazione} \rightarrow \text{PUBBLICAZIONI.Codice}$ \\
@@ -364,7 +374,19 @@ $\text{AUTOREAFFILIAZIONE.IDAutore} \rightarrow \text{AUTORI.ID}$ \\
 $\text{AUTOREAFFILIAZIONE.NomeAffiliazione} \rightarrow \text{AFFILIAZIONI.Nome}$ \\
 \\
 Si noti che le chiavi primarie sono state definite in modo da garantire l'univocità di ogni record, mentre le chiavi esterne sono state implementate per mantenere l'integrità referenziale tra le tabelle, assicurando che le relazioni logiche tra i dati siano rispettate. L'unica chiave candidata non scelta come chiave primaria è l'ISBN nella tabella \textbf{LIBRI}, poiché il codice della pubblicazione è già un identificatore univoco sufficiente per distinguere ogni libro all'interno del sistema. Si è preferito mantenere un'unica chiave primaria per semplificare le operazioni di join e ridurre la complessità del modello, evitando la necessità di gestire chiavi composite o multiple per la stessa entità. \\
-
+Infine la PK di \textbf{AUTORE} è chiave primaria artificiale, in quanto è molto più intuitiva e veloce di dover gestire una chiave composta da più attributi (es. nome, cognome, email).
+\subsubsection*{Vincoli non gestibili dallo schema logico} 
+I vincoli non gestibili dallo schema logico sono:
+\begin{itemize}
+    \item Non auto-citazione: una pubblicazione non può citare se stessa.
+    \item Non citazione circolare: se la pubblicazione A cita la pubblicazione B, allora la pubblicazione B non può citare la pubblicazione A.
+    \item Ciclo problematico tra Pubblicazione, Autore e Affiliazione: un autore affiliato a un ente di ricerca non può essere associato a una tesi, ma se il ciclo non è gestito potrebbe essere associato a una tesi senza avere coautori affiliati all'università dove ha sede la tesi.
+    \item Vincolo di copertura totale per la specializzazione Pubblicazione-Articolo/Libro/Tesi: ogni pubblicazione deve essere necessariamente classificata come uno dei tre tipi specifici.
+    \item Vincolo di integrità per la specializzazione Affiliazione-Università/Ente di Ricerca: l'associazione con l'entità Tesi è valida esclusivamente per le occorrenze di tipo Università.
+    \item Vincolo di dominio per l'attributo Tipo in Articolo: i valori devono essere vincolati al dominio {Rivista, Conferenza}.
+    \item Vincolo di integrità per gli attrbuti di Articolo: gli attributi NumeroVolume, LuogoConferenza e AnnoConferenza devono essere valorizzati solo se il Tipo è Conferenza, mentre l'attributo PaginaIniziale deve essere valorizzato solo se il Tipo è Rivista.
+\end{itemize} 
+I vincoli più interessanti verranno implementati a livello di progettazione fisica tramite trigger.
 
 \section{Progettazione fisica (Implementazione DB)} \label{sec:progettazione-fisica}
 Il DB è stato implementato utilizzando il sistema di gestione di database relazionale PostgreSQL, scelto per la sua robustezza, scalabilità e supporto avanzato alle funzionalità richieste dal progetto. La progettazione fisica ha seguito le best practice per l'ottimizzazione delle prestazioni, la gestione dell'integrità dei dati e la facilità di manutenzione. Di seguito vengono descritte le principali fasi dell'implementazione, inclusa la generazione delle tabelle SQL, il popolamento del database con dati di esempio e l'implementazione di trigger per garantire la coerenza dei dati.
@@ -491,8 +513,8 @@ CREATE TABLE pubblicazioni
     codice SERIAL NOT NULL,
     titolo varchar(200),
     annopubblicazione integer NOT NULL,
-    ncitazioni integer DEFAULT 0,
-    npagine integer NOT NULL,
+    ncitazioni integer CHECK (ncitazioni > 0) DEFAULT 0,
+    npagine integer CHECK (npagine > 0) NOT NULL,
     CONSTRAINT pubblicazione_pkey PRIMARY KEY (codice)
 );
 
@@ -550,6 +572,7 @@ CRO Aviano                        & 0434-659111 & Via Franco Gallini 2, Aviano  
 
 
 \subsection{Trigger} \label{subsec:trigger-citazioni}
+Su richiesta del docente, abbiamo deciso di implementare i trigger più interessanti e rilevanti per il nostro dominio, in particolare quelli relativi alla gestione delle citazioni. 
 \subsubsection*{Proprietà logiche dei vincoli sulle citazioni}
 \textbf{Non Autocitazione}: Una pubblicazione non può citare sé stessa. Questo è il vincolo più elementare e serve a prevenire l'inserimento di dati logicamente inconsistenti, garantendo che il conteggio delle citazioni rifletta solo i riferimenti esterni.\\
 \textbf{Non Citazione Circolare}: Una pubblicazione A non può citare una pubblicazione B se B cita già A, direttamente o indirettamente. Questo vincolo impedisce la formazione di cicli di citazione che potrebbero distorcere il conteggio delle citazioni e complicare l'analisi bibliometrica.\\
@@ -756,7 +779,6 @@ Per garantire l'integrità dei dati all'interno del database, sono stati impleme
 \end{itemize}
 \section{Query} \label{sec:query}
 Di seguito vengono presentate le query SQL per rispondere alle domande specifiche richieste
-
 \begin{enumerate}[label=\textbf{Q\arabic*}, start=1, leftmargin=1.5cm]
     \item \textbf{Autore con più pubblicazioni per ogni affiliazione} \\
     Stampare il nome dell'autore che detiene il maggior numero di pubblicazioni per ogni singola affiliazione.

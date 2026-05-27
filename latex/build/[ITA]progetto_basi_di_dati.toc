@@ -5,30 +5,32 @@
 \contentsline {subsection}{\numberline {1.2}Glossario dei termini}{2}{}%
 \contentsline {subsection}{\numberline {1.3}Strutturazione dei requisiti}{2}{}%
 \contentsline {subsubsection}{\numberline {1.3.1}Frasi di carattere generale}{2}{}%
-\contentsline {subsubsection}{\numberline {1.3.2}Dettaglio dei requisiti}{2}{}%
+\contentsline {subsubsection}{\numberline {1.3.2}Dettaglio dei requisiti su specifiche entità e relazioni}{2}{}%
+\contentsline {subsubsection}{\numberline {1.3.3}Requisiti operazionali}{3}{}%
 \contentsline {section}{\numberline {2}Progettazione concettuale}{3}{}%
-\contentsline {subsection}{\numberline {2.1}Gestione dell'entità Pubblicazione e delle sue specializzazioni}{3}{}%
-\contentsline {subsection}{\numberline {2.2}Gestione dell'entità Affiliazione e delle sue specializzazioni}{4}{}%
-\contentsline {subsection}{\numberline {2.3}Integrazione dei componenti e schema finale}{5}{}%
-\contentsline {section}{\numberline {3}Progettazione logica}{6}{}%
-\contentsline {subsection}{\numberline {3.1}Tavola dei volumi}{6}{}%
-\contentsline {subsection}{\numberline {3.2}Analisi delle ridondanze}{6}{}%
-\contentsline {subsubsection}{\numberline {3.2.1}Con Ridondanza dell'attributo NumeroCitazioni}{7}{}%
-\contentsline {paragraph}{Passi logici:}{7}{}%
-\contentsline {subsubsection}{\numberline {3.2.2}Senza Ridondanza dell'attributo NumeroCitazioni}{8}{}%
-\contentsline {paragraph}{Descrizione:}{8}{}%
+\contentsline {subsection}{\numberline {2.1}Gestione dell'entità Pubblicazione e delle sue specializzazioni}{4}{}%
+\contentsline {subsection}{\numberline {2.2}Gestione dell'entità Affiliazione e delle sue specializzazioni}{5}{}%
+\contentsline {subsection}{\numberline {2.3}Integrazione dei componenti e schema finale}{6}{}%
+\contentsline {section}{\numberline {3}Progettazione logica}{7}{}%
+\contentsline {subsection}{\numberline {3.1}Tavola dei volumi}{7}{}%
+\contentsline {subsection}{\numberline {3.2}Analisi delle ridondanze}{7}{}%
+\contentsline {subsubsection}{\numberline {3.2.1}Gli attributi ridondanti}{8}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}Con Ridondanza dell'attributo NumeroCitazioni}{8}{}%
 \contentsline {paragraph}{Passi logici:}{8}{}%
-\contentsline {subsubsection}{\numberline {3.2.3}Studio Comparativo}{8}{}%
-\contentsline {subsection}{\numberline {3.3}Ristrutturazione dello schema ER}{9}{}%
-\contentsline {subsection}{\numberline {3.4}Schema logico}{12}{}%
-\contentsline {section}{\numberline {4}Progettazione fisica (Implementazione DB)}{12}{}%
-\contentsline {subsection}{\numberline {4.1}Generazione delle tabelle SQL}{13}{}%
-\contentsline {subsection}{\numberline {4.2}Popolamento del database}{16}{}%
-\contentsline {subsection}{\numberline {4.3}Trigger}{16}{}%
-\contentsline {subsubsection}{\numberline {4.3.1}Trigger per l'incremento del numero di citazioni}{17}{}%
-\contentsline {subsubsection}{\numberline {4.3.2}Trigger per il decremento del numero di citazioni}{18}{}%
-\contentsline {subsubsection}{\numberline {4.3.3}Trigger per bloccare l'update delle citazioni}{19}{}%
-\contentsline {subsubsection}{\numberline {4.3.4}Trigger per il controllo dell'affiliazione universitaria nelle tesi}{19}{}%
+\contentsline {subsubsection}{\numberline {3.2.3}Senza Ridondanza dell'attributo NumeroCitazioni}{9}{}%
+\contentsline {paragraph}{Descrizione:}{9}{}%
+\contentsline {paragraph}{Passi logici:}{9}{}%
+\contentsline {subsubsection}{\numberline {3.2.4}Studio Comparativo}{9}{}%
+\contentsline {subsection}{\numberline {3.3}Ristrutturazione dello schema ER}{10}{}%
+\contentsline {subsection}{\numberline {3.4}Schema logico}{13}{}%
+\contentsline {section}{\numberline {4}Progettazione fisica (Implementazione DB)}{14}{}%
+\contentsline {subsection}{\numberline {4.1}Generazione delle tabelle SQL}{14}{}%
+\contentsline {subsection}{\numberline {4.2}Popolamento del database}{17}{}%
+\contentsline {subsection}{\numberline {4.3}Trigger}{18}{}%
+\contentsline {subsubsection}{\numberline {4.3.1}Trigger per l'incremento del numero di citazioni}{18}{}%
+\contentsline {subsubsection}{\numberline {4.3.2}Trigger per il decremento del numero di citazioni}{20}{}%
+\contentsline {subsubsection}{\numberline {4.3.3}Trigger per bloccare l'update delle citazioni}{21}{}%
+\contentsline {subsubsection}{\numberline {4.3.4}Trigger per il controllo dell'affiliazione universitaria nelle tesi}{21}{}%
 \contentsline {subsubsection}{\numberline {4.3.5}Implementazione di trigger esterni alla richiesta}{22}{}%
-\contentsline {section}{\numberline {5}Query}{22}{}%
-\contentsline {paragraph}{Nota sull'inefficacia dell'attributo derivato nella query OP8:}{25}{}%
+\contentsline {section}{\numberline {5}Query}{24}{}%
+\contentsline {paragraph}{Nota sull'inefficacia dell'attributo derivato nella query Q4:}{27}{}%

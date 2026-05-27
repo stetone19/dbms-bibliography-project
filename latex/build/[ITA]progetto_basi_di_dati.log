@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.24)  26 MAY 2026 16:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.24)  27 MAY 2026 15:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -366,256 +366,254 @@ Underfull \hbox (badness 2111) in paragraph at lines 65--65
  []
 
 [2]
-<img/Pubblicazione.pdf, id=13, 2313.64375pt x 1530.9295pt>
-File: img/Pubblicazione.pdf Graphic file (type pdf)
-<use img/Pubblicazione.pdf>
-Package pdftex.def Info: img/Pubblicazione.pdf  used on input line 98.
-(pdftex.def)             Requested size: 364.19667pt x 240.98251pt.
- [3 <./img/Pubblicazione.pdf>]
-<img/Affiliazione.pdf, id=31, 2683.4352pt x 2543.43217pt>
-File: img/Affiliazione.pdf Graphic file (type pdf)
-<use img/Affiliazione.pdf>
-Package pdftex.def Info: img/Affiliazione.pdf  used on input line 109.
-(pdftex.def)             Requested size: 364.19667pt x 345.17258pt.
- [4 <./img/Affiliazione.pdf>]
-<img/SchemaER.pdf, id=50, 791.8383pt x 352.43669pt>
-File: img/SchemaER.pdf Graphic file (type pdf)
-<use img/SchemaER.pdf>
-Package pdftex.def Info: img/SchemaER.pdf  used on input line 120.
-(pdftex.def)             Requested size: 364.19667pt x 162.10133pt.
+<img/SPUB.pdf, id=13, 791.8383pt x 541.06137pt>
+File: img/SPUB.pdf Graphic file (type pdf)
+<use img/SPUB.pdf>
+Package pdftex.def Info: img/SPUB.pdf  used on input line 106.
+(pdftex.def)             Requested size: 364.19667pt x 248.85822pt.
+ [3]
+<img/SAUT.pdf, id=17, 791.8383pt x 787.02025pt>
+File: img/SAUT.pdf Graphic file (type pdf)
+<use img/SAUT.pdf>
+Package pdftex.def Info: img/SAUT.pdf  used on input line 118.
+(pdftex.def)             Requested size: 364.19667pt x 361.98567pt.
+ [4 <./img/SPUB.pdf>] [5 <./img/SAUT.pdf>]
+<img/SER.pdf, id=43, 791.8383pt x 364.48169pt>
+File: img/SER.pdf Graphic file (type pdf)
+<use img/SER.pdf>
+Package pdftex.def Info: img/SER.pdf  used on input line 130.
+(pdftex.def)             Requested size: 364.19667pt x 167.64136pt.
+ [6 <./img/SER.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 177--179
 
-Underfull \hbox (badness 10000) in alignment at lines 151--151
-[][][] 
  []
 
-[5 <./img/SchemaER.pdf>] [6] [7]
-<img/SER1.pdf, id=74, 791.8383pt x 361.35pt>
+[7] [8] [9]
+<img/SER1.pdf, id=71, 791.8383pt x 361.35pt>
 File: img/SER1.pdf Graphic file (type pdf)
 <use img/SER1.pdf>
-Package pdftex.def Info: img/SER1.pdf  used on input line 278.
+Package pdftex.def Info: img/SER1.pdf  used on input line 287.
 (pdftex.def)             Requested size: 364.19667pt x 166.20096pt.
- [8]
-<img/SER2.pdf, id=79, 791.8383pt x 356.29109pt>
+<img/SER2.pdf, id=72, 791.8383pt x 356.29109pt>
 File: img/SER2.pdf Graphic file (type pdf)
 <use img/SER2.pdf>
-Package pdftex.def Info: img/SER2.pdf  used on input line 290.
+Package pdftex.def Info: img/SER2.pdf  used on input line 299.
 (pdftex.def)             Requested size: 364.19667pt x 163.87413pt.
- [9 <./img/SER1.pdf> <./img/SER2.pdf>]
-<img/SER3.pdf, id=101, 791.8383pt x 417.47968pt>
+ [10 <./img/SER1.pdf> <./img/SER2.pdf>]
+<img/SER3.pdf, id=94, 791.8383pt x 417.47968pt>
 File: img/SER3.pdf Graphic file (type pdf)
 <use img/SER3.pdf>
-Package pdftex.def Info: img/SER3.pdf  used on input line 308.
+Package pdftex.def Info: img/SER3.pdf  used on input line 317.
 (pdftex.def)             Requested size: 364.19667pt x 192.0175pt.
-<img/SER4.pdf, id=102, 791.8383pt x 305.22029pt>
+<img/SER4.pdf, id=95, 791.8383pt x 305.22029pt>
 File: img/SER4.pdf Graphic file (type pdf)
 <use img/SER4.pdf>
-Package pdftex.def Info: img/SER4.pdf  used on input line 321.
+Package pdftex.def Info: img/SER4.pdf  used on input line 330.
 (pdftex.def)             Requested size: 364.19667pt x 140.3844pt.
- [10 <./img/SER3.pdf>]
-<img/SERF.pdf, id=115, 791.8383pt x 306.18388pt>
+ [11 <./img/SER3.pdf>]
+<img/SERF.pdf, id=108, 791.8383pt x 306.18388pt>
 File: img/SERF.pdf Graphic file (type pdf)
 <use img/SERF.pdf>
-Package pdftex.def Info: img/SERF.pdf  used on input line 334.
+Package pdftex.def Info: img/SERF.pdf  used on input line 343.
 (pdftex.def)             Requested size: 364.19667pt x 140.82759pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 341--367
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 341--367
+ [12 <./img/SER4.pdf> <./img/SERF.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 363--378
 
  []
 
-[11 <./img/SER4.pdf> <./img/SERF.pdf>] [12]
+[13]
+Overfull \hbox (5.30281pt too wide) in paragraph at lines 384--385
+[]\T1/cmr/m/n/12 Vincolo di co-per-tu-ra to-ta-le per la spe-cia-liz-za-zio-ne Pubblicazione-Articolo/Libro/Tesi:
+ []
+
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 377.
- [13] [14] [15]
-Overfull \hbox (51.03485pt too wide) in paragraph at lines 533--549
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 399.
+[14] [15] [16] [17]
+Overfull \hbox (51.03485pt too wide) in paragraph at lines 555--571
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 554--557
+Underfull \hbox (badness 10000) in paragraph at lines 577--580
 
  []
 
-[16]
-Underfull \hbox (badness 10000) in paragraph at lines 559--565
+
+Underfull \hbox (badness 10000) in paragraph at lines 582--588
 
  []
 
-[17]
-Underfull \hbox (badness 2790) in paragraph at lines 635--635
+[18]
+Underfull \hbox (badness 2790) in paragraph at lines 658--658
 \T1/cmr/m/n/10.95 una ci-ta-zio-ne ver-so
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 635--635
+Underfull \hbox (badness 10000) in paragraph at lines 658--658
 \T1/cmr/m/n/10.95 una pub-bli-ca-zio-ne
  []
 
 
-Underfull \hbox (badness 2809) in paragraph at lines 635--635
+Underfull \hbox (badness 2809) in paragraph at lines 658--658
 []|\T1/cmr/bx/n/10.95 Successo\T1/cmr/m/n/10.95 : Tran-sa-
  []
 
 
-Underfull \hbox (badness 2173) in paragraph at lines 635--635
+Underfull \hbox (badness 2173) in paragraph at lines 658--658
 []|\T1/cmr/bx/n/10.95 TC-02: Ca-so di
  []
 
 
-Underfull \hbox (badness 7504) in paragraph at lines 635--635
+Underfull \hbox (badness 7504) in paragraph at lines 658--658
 []|\T1/cmr/m/n/10.95 Tentativo di auto-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 635--635
+Underfull \hbox (badness 10000) in paragraph at lines 658--658
 \T1/cmr/m/n/10.95 "Una pub-bli-ca-zio-ne
  []
 
 
-Underfull \hbox (badness 1448) in paragraph at lines 635--635
+Underfull \hbox (badness 1448) in paragraph at lines 658--658
 []|\T1/cmr/bx/n/10.95 TC-03: Vio-la-zio-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 635--635
+Underfull \hbox (badness 10000) in paragraph at lines 658--658
 \T1/cmr/m/n/10.95 "Una pub-bli-ca-zio-
  []
 
 
-Underfull \hbox (badness 3417) in paragraph at lines 635--635
+Underfull \hbox (badness 3417) in paragraph at lines 658--658
 \T1/cmr/m/n/10.95 ne può ci-ta-re so-lo
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 635--635
+Underfull \hbox (badness 10000) in paragraph at lines 658--658
 \T1/cmr/m/n/10.95 pub-bli-ca-zio-ni con-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 635--635
+Underfull \hbox (badness 10000) in paragraph at lines 658--658
 \T1/cmr/m/n/10.95 tem-po-ra-nee o più
  []
 
-[18] [19]
-Underfull \hbox (badness 2790) in paragraph at lines 748--748
+[19] [20] [21]
+Underfull \hbox (badness 2790) in paragraph at lines 771--771
 []|\T1/cmr/m/n/10.95 Tentativo di in-se-ri-
  []
 
 
-Underfull \hbox (badness 4792) in paragraph at lines 748--748
+Underfull \hbox (badness 4792) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 che non è un'i-sti-
  []
 
 
-Underfull \hbox (badness 1377) in paragraph at lines 748--748
+Underfull \hbox (badness 1377) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 tu-zio-ne uni-ver-si-ta-ria
  []
 
 
-Underfull \hbox (badness 1748) in paragraph at lines 748--748
+Underfull \hbox (badness 1748) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Argomento: 'Bioin-
  []
 
 
-Underfull \hbox (badness 5924) in paragraph at lines 748--748
+Underfull \hbox (badness 5924) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Affiliazione in-se-ri-ta:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Affiliazione au-to-ri:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 "Università in-se-ri-ta
  []
 
 
-Underfull \hbox (badness 1325) in paragraph at lines 748--748
+Underfull \hbox (badness 1325) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 non cor-ret-ta o non
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 []|\T1/cmr/bx/n/10.95 TC-07: Di-scor-
  []
 
 
-Underfull \hbox (badness 2790) in paragraph at lines 748--748
+Underfull \hbox (badness 2790) in paragraph at lines 771--771
 []|\T1/cmr/m/n/10.95 Tentativo di in-se-ri-
  []
 
 
-Underfull \hbox (badness 1748) in paragraph at lines 748--748
+Underfull \hbox (badness 1748) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Argomento: 'Bioin-
  []
 
 
-Underfull \hbox (badness 5924) in paragraph at lines 748--748
+Underfull \hbox (badness 5924) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Affiliazione in-se-ri-ta:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Stu-di di Pa-do-va',
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Affiliazione au-to-ri:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 "Università in-se-ri-ta
  []
 
 
-Underfull \hbox (badness 1748) in paragraph at lines 748--748
+Underfull \hbox (badness 1748) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Argomento: 'Bioin-
  []
 
 
-Underfull \hbox (badness 5924) in paragraph at lines 748--748
+Underfull \hbox (badness 5924) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Affiliazione in-se-ri-ta:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 Affiliazione au-to-ri:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 771--771
 \T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
  []
 
-[20] [21]
-Overfull \hbox (7.05533pt too wide) in paragraph at lines 755--756
+
+Overfull \hbox (7.05533pt too wide) in paragraph at lines 778--779
 []\T1/cmr/m/n/12 Integrità Re-fe-ren-zia-le Com-ples-sa: Nel-le ta-bel-le di as-so-cia-zio-ne \T1/cmtt/m/n/12 PubblicazioneAutore
  []
 
-[22] [23] [24] [25] (c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.aux)
+[22] [23] [24] [25] [26] [27] (c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -627,16 +625,16 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  7516 strings out of 467867
- 115001 string characters out of 5418334
+ 114847 string characters out of 5418334
  993090 words of memory out of 5000000
  36319 multiletter control sequences out of 15000+600000
  641629 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,65p,1339b,1901s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,65p,1374b,1901s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0800.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on "c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.pdf" (25 pages, 1000506 bytes).
+Output written on "c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ITA]progetto_basi_di_dati.pdf" (27 pages, 468778 bytes).
 PDF statistics:
- 720 PDF objects out of 1000 (max. 8388607)
+ 724 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
