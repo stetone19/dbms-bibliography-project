@@ -363,7 +363,7 @@ $\text{PUBBLICAZIONEAUTORE.CodicePubblicazione} \rightarrow \text{PUBBLICAZIONI.
 $\text{AUTOREAFFILIAZIONE.IDAutore} \rightarrow \text{AUTORI.ID}$ \\
 $\text{AUTOREAFFILIAZIONE.NomeAffiliazione} \rightarrow \text{AFFILIAZIONI.Nome}$ \\
 \\
-Si noti che le chiavi primarie sono state definite in modo da garantire l'univocità di ogni record, mentre le chiavi esterne sono state implementate per mantenere l'integrità referenziale tra le tabelle, assicurando che le relazioni logiche tra i dati siano rispettate. L'unica chiave candidabile non scelta come chiave primaria è l'ISBN nella tabella \textbf{LIBRI}, poiché il codice della pubblicazione è già un identificatore univoco sufficiente per distinguere ogni libro all'interno del sistema. Si è preferito mantenere un'unica chiave primaria per semplificare le operazioni di join e ridurre la complessità del modello, evitando la necessità di gestire chiavi composite o multiple per la stessa entità. \\
+Si noti che le chiavi primarie sono state definite in modo da garantire l'univocità di ogni record, mentre le chiavi esterne sono state implementate per mantenere l'integrità referenziale tra le tabelle, assicurando che le relazioni logiche tra i dati siano rispettate. L'unica chiave candidata non scelta come chiave primaria è l'ISBN nella tabella \textbf{LIBRI}, poiché il codice della pubblicazione è già un identificatore univoco sufficiente per distinguere ogni libro all'interno del sistema. Si è preferito mantenere un'unica chiave primaria per semplificare le operazioni di join e ridurre la complessità del modello, evitando la necessità di gestire chiavi composite o multiple per la stessa entità. \\
 
 
 \section{Progettazione fisica (Implementazione DB)} \label{sec:progettazione-fisica}
@@ -374,17 +374,17 @@ Di seguito viene presentata la sintassi SQL utilizzata per creare le tabelle del
 \begin{lstlisting}
 
 -- Tabella Affiliazioni
-CREATE TABLE public.affiliazioni
+CREATE TABLE affiliazioni
 (
     nome varchar(100) NOT NULL,
     telefono varchar(100) NOT NULL,
     indirizzo varchar(100) NOT NULL,
     tipo varchar(20),
     CONSTRAINT affiliazione_pkey PRIMARY KEY (nome)
-)
+);
 
 -- Tabella Pubblicazioni
-CREATE TABLE IF NOT EXISTS public.articoli
+CREATE TABLE IF NOT EXISTS articoli
 (
     CodicePubblicazione integer NOT NULL,
     tipo varchar(50) NOT NULL,
@@ -398,10 +398,10 @@ CREATE TABLE IF NOT EXISTS public.articoli
         REFERENCES public.pubblicazioni (codice) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
-)
+);
 
 -- Tabella AutoreAffiliazione
-CREATE TABLE public.autoreaffiliazione
+CREATE TABLE autoreaffiliazione
 (
     idAutore integer NOT NULL,
     nomeAffiliazione varchar(255) NOT NULL,
@@ -414,10 +414,10 @@ CREATE TABLE public.autoreaffiliazione
         REFERENCES public.affiliazioni (nome) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE
-)
+);
 
 -- Tabella Autori
-CREATE TABLE public.autori
+CREATE TABLE autori
 (
     id SERIAL NOT NULL,
     nome varchar(100)  NOT NULL,
@@ -425,11 +425,11 @@ CREATE TABLE public.autori
     email varchar(100) NOT NULL,
     sitoweb varchar(100) NOT NULL,
     CONSTRAINT autore_pkey PRIMARY KEY (id)
-)
+);
 
 
 -- Tabella Citazioni
-CREATE TABLE public.citazioni
+CREATE TABLE citazioni
 (
     pubblicazioneCitante integer NOT NULL,
     pubblicazioneCitata integer NOT NULL,
@@ -442,22 +442,22 @@ CREATE TABLE public.citazioni
         REFERENCES public.pubblicazioni (codice) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
-)
+);
 
 -- Tabella Editori
-CREATE TABLE public.editori
+CREATE TABLE editori
 (
     nome varchar(100) NOT NULL,
     indirizzo varchar(255) NOT NULL,
     CONSTRAINT editore_pkey PRIMARY KEY (nome)
-)
+);
 
 -- Tabella Libri
-CREATE TABLE public.libri
+CREATE TABLE libri
 (
     CodicePubblicazione integer NOT NULL,
-    isbn varchar(17) NOT NULL,
-    nomeEditore varchar(255) NOT NULL,
+    isbn varchar(17) UNIQUE NOT NULL,
+    nomeEditore varchar(100) NOT NULL,
     CONSTRAINT libro_pkey PRIMARY KEY (CodicePubblicazione ),
     CONSTRAINT libro_codice_pubblicazione_fkey FOREIGN KEY (CodicePubblicazione )
         REFERENCES public.pubblicazioni (codice) MATCH SIMPLE
@@ -470,7 +470,7 @@ CREATE TABLE public.libri
 );
 
 -- Tabella PubblicazioneAutore
-CREATE TABLE public.pubblicazioneautore
+CREATE TABLE pubblicazioneautore
 (
     CodicePubblicazione integer NOT NULL,
     idAutore integer NOT NULL,
@@ -486,7 +486,7 @@ CREATE TABLE public.pubblicazioneautore
 );
 
 -- Tabella Pubblicazioni
-CREATE TABLE public.pubblicazioni
+CREATE TABLE pubblicazioni
 (
     codice SERIAL NOT NULL,
     titolo varchar(200),
@@ -494,10 +494,10 @@ CREATE TABLE public.pubblicazioni
     ncitazioni integer DEFAULT 0,
     npagine integer NOT NULL,
     CONSTRAINT pubblicazione_pkey PRIMARY KEY (codice)
-)
+);
 
 -- Tabella Tesi
-CREATE TABLE public.tesi
+CREATE TABLE tesi
 (
     CodicePubblicazione integer NOT NULL,
     argomento text NOT NULL,
@@ -511,7 +511,7 @@ CREATE TABLE public.tesi
         REFERENCES public.affiliazioni (nome) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
 
 \end{lstlisting}
 
