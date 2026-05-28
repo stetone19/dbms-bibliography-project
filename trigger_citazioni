@@ -5,12 +5,10 @@ CREATE OR REPLACE FUNCTION inc_n_citazioni()
         v_anno_citante integer;
         v_anno_citata integer;
     BEGIN
-        -- Controllo auto-citazione immediato
         IF NEW.pubblicazioneCitante = NEW.pubblicazioneCitata THEN
             RAISE EXCEPTION 'Una pubblicazione non si puÃ² citare da sola';
         END IF;
 
-        -- Recupero gli anni di pubblicazione (usando i nomi corretti dello schema)
         SELECT annopubblicazione INTO v_anno_citante 
         FROM public.pubblicazioni 
         WHERE codice = NEW.PubblicazioneCitante;
@@ -19,12 +17,15 @@ CREATE OR REPLACE FUNCTION inc_n_citazioni()
         FROM public.pubblicazioni 
         WHERE codice = NEW.PubblicazioneCitata;
 
-        -- Controllo temporale
         IF v_anno_citante < v_anno_citata THEN
             RAISE EXCEPTION 'Una pubblicazione puÃ² citare solo pubblicazioni contemporanee o piÃ¹ vecchie';
         END IF;
+		IF v_anno_citante = v_anno_citata THEN
+			IF EXISTS( SELECT *	FROM CITAZIONI	WHERE pubblicazionecitata = NEW.PubblicazioneCitante AND pubblicazionecitante = NEW.PubblicazioneCitata) THEN
+				RAISE EXCEPTION 'Creazione di una citazione ciclica';
+			END IF;
+		END IF;
 
-        -- Aggiornamento diretto (molto piÃ¹ efficiente)
         UPDATE public.pubblicazioni
         SET ncitazioni = ncitazioni + 1
         WHERE codice = NEW.PubblicazioneCitata;
@@ -43,7 +44,6 @@ FOR EACH ROW EXECUTE FUNCTION inc_n_citazioni();
 CREATE OR REPLACE FUNCTION dec_n_citazioni()
     RETURNS TRIGGER LANGUAGE plpgsql AS $$
     BEGIN
-        -- Aggiornamento diretto senza bisogno di SELECT preventiva
         UPDATE public.pubblicazioni
         SET ncitazioni = ncitazioni - 1
         WHERE codice = OLD.PubblicazioneCitata;
@@ -52,7 +52,7 @@ CREATE OR REPLACE FUNCTION dec_n_citazioni()
     END;
 $$;
 
-CREATE TRIGGER trg_dec_CIT
+CREATE TRIGGER trg_rim_CIT
 BEFORE DELETE ON public.citazioni
 FOR EACH ROW EXECUTE FUNCTION dec_n_citazioni();
 
