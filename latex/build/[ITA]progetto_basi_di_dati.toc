@@ -33,4 +33,5 @@
 \contentsline {subsubsection}{\numberline {4.3.4}Trigger per il controllo dell'affiliazione universitaria nelle tesi}{22}{}%
 \contentsline {subsubsection}{\numberline {4.3.5}Implementazione di trigger esterni alla richiesta}{23}{}%
 \contentsline {section}{\numberline {5}Query}{25}{}%
-\contentsline {paragraph}{Nota sull'inefficacia dell'attributo derivato nella query Q4:}{28}{}%
+\contentsline {paragraph}{}{27}{}%
+\contentsline {paragraph}{Nota sull'inefficacia dell'attributo derivato nella query Q4:}{27}{}%

@@ -831,6 +831,9 @@ HAVING COUNT(pa.codice_pubblicazione) = (
 );
 \end{lstlisting}
 
+Dal punto di vista del codice, per calcolare il massimo numero di pubblicazioni per ogni istituto, è necessario unire le tabelle relative agli autori, alle pubblicazioni e alle affiliazioni . Si raggruppano quindi i risultati per autore e affiliazione. Per filtrare correttamente il "vincitore" di ogni ente, si utilizza una clausola HAVING che confronta il conteggio delle pubblicazioni del singolo autore con un valore MAX(cnt) ottenuto da una subquery calcolata per la stessa affiliazione
+
+
 \subsection*{Q2: Coppie che hanno pubblicato sempre e solo insieme}
 Stampare le coppie di autori che hanno collaborato sempre e solo tra di loro (ovvero, ogni loro pubblicazione è stata fatta in coppia). 
 \begin{lstlisting}
@@ -852,7 +855,8 @@ AND COUNT(DISTINCT pa2.codice_pubblicazione) = (
 );
 \end{lstlisting}
 
-\newpage
+Per implementare questa operazione, che cerca le coppie di autori che hanno collaborato sempre e solo tra di loro, si è deciso di utilizzare una join sulla tabella di associazione PUBB\_AUTORE . Per evitare di analizzare due volte la stessa coppia o contare permutazioni speculari, si applica la condizione pa1.id\_autore < pa2.id\_autore. Successivamente, la condizione di esclusività viene garantita controllando tramite HAVING che il numero di pubblicazioni fatte insieme coincida con il totale assoluto delle pubblicazioni del primo autore e, simultaneamente, del secondo autore.
+
 
 \subsection*{Q3: Autori che non hanno mai pubblicato con colleghi di altre affiliazioni}
 Stampare gli autori che non hanno mai prodotto pubblicazioni con co-autori appartenenti a un'affiliazione diversa dalla propria.
@@ -873,7 +877,9 @@ WHERE NOT EXISTS (
       AND aa1.nome_affiliazione <> aa2.nome_affiliazione
 );
 \end{lstlisting}
-Questa 
+\paragraph{}
+L'implementazione di questa ricerca si basa su un approccio logico per sottrazione. Si utilizza la clausola NOT EXISTS per scartare tutti quegli autori che possiedono almeno una pubblicazione co-firmata con un ricercatore di un'altra struttura. Nello specifico, la subquery ricerca casi in cui, a parità di codice\_pubblicazione, due co-autori risultino avere un'affiliazione differente (aa1.nome\_affiliazione <> aa2.nome\_affiliazione).
+
 
 \subsection*{Q4: Autori con solo articoli di successo (min. 5 citazioni a 2 anni)}
 Trovare gli autori che hanno pubblicato esclusivamente articoli i quali, a distanza di 2 anni dalla data di pubblicazione, hanno accumulato almeno 5 citazioni.
@@ -899,6 +905,8 @@ AND NOT EXISTS (
       ) < 5
 );
 \end{lstlisting}
+
+Per imporre il vincolo temporale richiesto (conteggio nei primi 2 anni), le citazioni vengono calcolate dinamicamente interrogando la tabella CITAZIONE e incrociando l'anno di pubblicazione . La logica richiede che l'autore abbia pubblicato almeno un articolo (Condizione A con EXISTS) e che non abbia all'attivo alcuna pubblicazione con meno di 5 citazioni nel biennio (Condizione B con NOT EXISTS).
 
 \paragraph{Nota sull'inefficacia dell'attributo derivato nella query Q4:}
 Nonostante la presenza dell'attributo derivato \texttt{NumeroCitazioni} nell'entità \textbf{PUBBLICAZIONE} --- introdotto per ottimizzare la stampa dei dati generali (\textit{OP1}) --- esso risulta inutilizzabile ai fini della query \textbf{OP8} (\textit{Analisi dell'impatto a breve termine}).
