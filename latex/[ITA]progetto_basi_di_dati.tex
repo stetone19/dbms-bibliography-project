@@ -429,7 +429,7 @@ CREATE TABLE pubblicazioni
     codice SERIAL NOT NULL,
     titolo varchar(200),
     annopubblicazione integer NOT NULL,
-    ncitazioni integer CHECK( ncitazioni > 0) DEFAULT 0 ,
+    ncitazioni integer CHECK( ncitazioni >= 0) DEFAULT 0 ,
     npagine integer CHECK( npagine > 0) NOT NULL ,
     CONSTRAINT pubblicazione_pkey PRIMARY KEY (codice)
 );
@@ -437,7 +437,7 @@ CREATE TABLE pubblicazioni
 -- Tabella Articoli
 CREATE TABLE articoli(
     CodicePubblicazione integer NOT NULL,
-    tipo varchar(50) NOT NULL CHECK(tipo IN ['Rivista', 'Conferenza']),
+    tipo varchar(50) NOT NULL CHECK(tipo IN ('Rivista', 'Conferenza')),
     nome varchar(255) NOT NULL,
     Npaginainiziale integer,
     Nvolume integer,
