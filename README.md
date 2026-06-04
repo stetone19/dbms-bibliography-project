@@ -1,3 +1,6 @@
+[![🇮🇹 Italiano](https://img.shields.io/badge/README-Italiano-green?style=flat-square)](README_IT.md)
+[![🇬🇧 English](https://img.shields.io/badge/README-English-blue?style=flat-square)](README.md)
+
 # 📚 Academic Bibliography Database
 
 > Relational database for managing an academic bibliography, designed and implemented as part of the *Laboratorio di Basi di Dati* course (a.a. 2025–2026) at the **Università degli Studi di Udine**.
