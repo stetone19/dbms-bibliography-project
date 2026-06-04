@@ -37,6 +37,25 @@
 \date{\today}
 
 \begin{document}
+\begin{titlepage}
+    \centering
+    
+    % Inserimento del logo (assicurati che il file sia nella stessa cartella)
+    \includegraphics[width=0.4\textwidth]{img/Logo_Università_di_Udine.png} % Sostituisci con il percorso del logo
+    
+    \vspace{2cm} % Spazio verticale
+    
+    {\Huge \bfseries Progetto di Basi di Dati\par}
+    
+    \vspace{1cm}
+    
+    {\Large Federico Del Pup \\ Luigi Pascu \\ Matteo Passador \\ Stefano Toneguzzo \par}
+    
+    \vfill % Spinge il contenuto successivo verso il basso
+    
+    {\large \today\par}
+\end{titlepage}
+
 
 \tableofcontents
 
@@ -103,7 +122,7 @@ Lo schema Entità-Relazione è stato progettato per rappresentare in modo fedele
 \subsection{Gestione dell'entità Pubblicazione e delle sue specializzazioni} \label{subsec:pubblicazione}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SPUB.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/EntitaPubblicazione.pdf} % image file path
     \caption{Entità Pubblicazione e specializzazioni}
     \label{fig:label_immagine}
 \end{figure}
@@ -115,24 +134,24 @@ L'entità \textbf{Editore} è collegata all'entità \textbf{Libro} tramite una r
 \subsection{Gestione dell'entità Affiliazione e delle sue specializzazioni} \label{subsec:affiliazione}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SAUT.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/EntitaAutore.pdf} % image file path
     \caption{Entità Autore, Affiliazione e specializzazioni}
     \label{fig:label_immagine}
 \end{figure}
 L'entità \textbf{Affiliazione} è stata specializzata in \textbf{Università} ed \textbf{Ente di Ricerca} per rappresentare in modo più dettagliato le diverse tipologie di affiliazioni che un autore può avere. Questa specializzazione è stata implementata utilizzando una gerarchia a copertura parziale, in quanto ci possono essere affiliazioni che non rientrano in nessuna delle due categorie. La scelta di mantenere separate le entità figlie è motivata dalla possibilità di collegare successivamente l'università alle tesi, mentre gli enti di ricerca non hanno questa relazione. L'entità \textbf{Autore} è collegata all'entità \textbf{Affiliazione} tramite una relazione di appartenenza, che consente di modellare il fatto che un autore può essere affiliato a più enti nel tempo. La relazione è molti a molti, in quanto un autore può avere più affiliazioni e un'affiliazione può essere associata a più autori. Non è richiesto di gestire i periodi di appartenenza da parte di un autore a un'affiliazione (storicizzazione), ad esempio se un autore è stato affiliato a un'affiliazione in periodi diversi, non è necessario tenere traccia di queste informazioni.
 \\Come detto per l'editore, assumiamo che il nome dell'affiliazione sia univoco nel dominio, visto il contesto di riferimento.
 \\Si noti che l'entità \textbf{Ente di Ricerca} è stata aggiunta su suggerimento del docente, al fine di rappresentare in modo più completo il dominio delle affiliazioni, che non si limitano esclusivamente alle università, ma includono anche altri tipi di organizzazioni coinvolte nella ricerca accademica.
-\\L'entità \textbf{Autore} non presenta chiavi candidate, in quanto non è specificato dalla richiesta che qualche combinazione di attributi possa fungere da identificatore univoco. 
+\\L'entità \textbf{Autore} presenta una chiave candidata, composta dalla \textbf{superchiave}, in quanto non è specificato dalla richiesta che qualche combinazione di attributi possa fungere da identificatore univoco. 
 
 \subsection{Integrazione dei componenti e schema finale} \label{subsec:integrazione}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SER.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/EntitaRelazione.pdf} % image file path
     \caption{Schema Entità-Relazione}
     \label{fig:label_immagine}
 \end{figure}
 
-Per integrare i componenti prodotti, si crea una relazione molti a molti fra \textbf{Autore} e \textbf{Affiliazione}. Infine si collega l'entità \textbf{Tesi} con l'entità \textbf{Università} tramite una relazione di sede, in quanto ogni tesi è discussa in una specifica università. Questo comporta la creazione di un ciclo problematico, che viene gestito nelle fasi successive perchè potrebbero crearsi incongruenza dei dati. Es. un autore affiliato a un ente di ricerca non può essere associato a una tesi, ma se il ciclo non è gestito potrebbe essere associato a una tesi senza avere coautori affiliati all'università dove ha sede la tesi.
+Per integrare i componenti prodotti, si crea una relazione molti a molti fra \textbf{Autore} e \textbf{Pubblicazione}. Infine si collega l'entità \textbf{Tesi} con l'entità \textbf{Università} tramite una relazione di sede, in quanto ogni tesi è discussa in una specifica università. Questo comporta la creazione di un ciclo problematico, che viene gestito nelle fasi successive perchè potrebbero crearsi incongruenza dei dati. Es. un autore affiliato a un ente di ricerca non può essere associato a una tesi, ma se il ciclo non è gestito potrebbe essere associato a una tesi senza avere coautori affiliati all'università dove ha sede la tesi.
 \\ Alcuni vincoli non possono essere risolti tramite lo schema ER. Ad esempio il vincolo di non auto-citazione (una pubblicazione non può citare se stessa) o non-ciclicità (se B cita A, A non può citare B) delle citazioni non può essere gestito a livello di progettazione concettuale, ma sarà necessario implementare dei trigger a livello di progettazione fisica per garantire l'integrità dei dati in questi casi specifici.
 \section{Progettazione logica} \label{sec:progettazione-logica}
 \subsection{Tavola dei volumi} \label{subsec:tavola-volumi}
@@ -182,8 +201,7 @@ Ecco una stima della frequenza delle operazioni più comuni che il sistema dovr�
     Frequenza: 1 volta al giorno (frequenza stimata).
 \end{enumerate}
 \subsubsection{Gli attributi ridondanti}
-Gli unici due attributi ridondanti presenti nello schema sono: \texttt{NumeroCitazioni} nell'entità \textbf{Pubblicazione} e \texttt{NumeroPagineTotali} nell'entità \textbf{Articolo}. Si fa un'analisi comparativa tra le due soluzioni per il primo attributo, considerando l'impatto della ridondanza sull'efficienza del sistema, in particolare per le operazioni di stampa e aggiornamento delle citazioni, che sono le più frequenti.
-Per il secondo attributo ridondante, essendo un attributo comune a tutte le sottoentità dell'entità \textbf{Pubblicazione}, si è deciso di mantenerlo. Da qui si è optato di rimuovere l'attributo \texttt{Pagina finale}, in quanto è facilmente calcolabile a partire da \texttt{Pagina iniziale} e \texttt{NumeroPagineTotali}. 
+L'unico attributo ridondante presente nello schema è \texttt{NumeroCitazioni} nell'entità \textbf{Pubblicazione}. Si fa un'analisi comparativa tra le due soluzioni per l'attributo, considerando l'impatto della ridondanza sull'efficienza del sistema, in particolare per le operazioni di stampa e aggiornamento delle citazioni, che sono le più frequenti. Nell'analisi delle ridondanze, si prendono in considerazione solo le operazioni 1 e 2 perché interessano l'entità \textbf{Pubblicazione} e l'attributo ridondante \texttt{NumeroCitazioni}, mentre le operazioni 3 e 4 non coinvolgono direttamente questo attributo.
 \subsubsection{Con Ridondanza dell'attributo NumeroCitazioni} 
 Per il calcolo del costo, si assume che un accesso a un'entità o relazione di tipo "L" (lettura) abbia un costo unitario di 1, mentre un accesso di tipo "S" (scrittura) abbia un costo unitario di 2 \textit{(rapporto 1:2)}, riflettendo l'overhead aggiuntivo associato alle operazioni di scrittura rispetto a quelle di lettura. 
 La stima del costo totale è effettuata con il dato di frequenza maggiore per ogni operazione, al fine di valutare l'impatto massimo della ridondanza sull'efficienza del sistema.
@@ -205,9 +223,9 @@ Pubblicazione & Entità & 1 & L \\
 \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
 \midrule
 Pubblicazione & Entità & 2 & S \\
-Cita          & Relazione & 1 & S \\
+Citazione          & Relazione & 1 & S \\
 Pubblicazione & Entità & 1 & L \\
-Autore        & Entità & 1 & S \\
+Scritto        & Relazione & 1 & S \\
 \bottomrule
 \end{tabular}
 
@@ -246,8 +264,8 @@ Stampo i dati relativi ad una pubblicazione. Per ogni pubblicazione, per calcola
 \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
 \midrule
 Pubblicazione & Entità & 1 & S \\
-Cita          & Relazione & 1 & S \\
-Autore        & Entità & 1 & S \\
+Citazione          & Relazione & 1 & S \\
+Scritto        & Relazione & 1 & S \\
 \bottomrule
 \end{tabular}
 
@@ -284,7 +302,7 @@ In seguito vengono mostrate le modifiche apportate al modello ER per favorire la
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SER1.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/ER1.pdf} % image file path
     \caption{Schema ER modificato dopo la prima revisione}
     \label{fig:label_immagine2}
 \end{figure}
@@ -292,11 +310,11 @@ In seguito vengono mostrate le modifiche apportate al modello ER per favorire la
 \textbf{Specializzazione Rivista-Conferenza:} 
 La gerarchia è stata accorpata verso l'alto (ristrutturazione verso il padre) eliminando le entità figlie e migrandone gli attributi nell'entità genitore \textit{Articolo}. Per distinguere le occorrenze, è stato introdotto l'attributo discriminante \textit{Tipo}, i cui valori sono vincolati al dominio $\{\text{Rivista, Conferenza}\}$. 
 
-Gli attributi derivanti dalle classi figlie sono stati definiti come opzionali (cardinalità 0..1), con l'eccezione dell'attributo \textit{Nome}, che rimane obbligatorio in quanto comune a entrambe le tipologie. Si specifica, inoltre, che l'attributo \textit{AnnoConferenza} deve essere semanticamente distinto dall'attributo \textit{AnnoPubblicazione}. Ad esempio una Conferenza può essere svolta in un anno diverso da quello di pubblicazione dell'articolo associato.
+Gli attributi derivanti dalle entità figlie sono stati definiti come opzionali (cardinalità 0,1), con l'eccezione dell'attributo \textit{Nome}, che rimane obbligatorio in quanto comune a entrambe le tipologie. Si specifica, inoltre, che l'attributo \textit{AnnoConferenza} deve essere semanticamente distinto dall'attributo \textit{AnnoPubblicazione}. Ad esempio una Conferenza può essere svolta in un anno diverso da quello di pubblicazione dell'articolo associato.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SER2.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/ER2.pdf} % image file path
     \caption{Schema ER modificato dopo la seconda revisione}
     \label{fig:label_immagine3}
 \end{figure}
@@ -314,20 +332,20 @@ L'attributo composto \textit{Indirizzo Fisico} è stato ristrutturato mediante u
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SER3.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/ER3.pdf} % image file path
     \caption{Schema ER modificato dopo la terza revisione}
     \label{fig:label_immagine4}
 \end{figure}
 
 \noindent
 \textbf{Risoluzione della Gerarchia Pubblicazione:}
-La specializzazione tra l'entità genitore \textit{Pubblicazione} e le sottoclassi \textit{Articolo}, \textit{Libro} e \textit{Tesi} è stata risolta mantenendo le entità distinte (strategia delle entità multiple). 
+La specializzazione tra l'entità genitore \textit{Pubblicazione} e le sottoentità \textit{Articolo}, \textit{Libro} e \textit{Tesi} è stata risolta mantenendo le entità distinte (strategia delle entità multiple). 
 
 Per implementare correttamente il legame logico, sono state definite relazioni esplicite tra il padre e i figli tramite l'uso di chiavi esterne (\textit{foreign keys}) nelle entità figlie che referenziano la chiave primaria di \textit{Pubblicazione}. Al fine di garantire la copertura totale della specializzazione, è stato introdotto un vincolo di integrità aggiuntivo: ogni occorrenza dell'entità \textit{Pubblicazione} deve necessariamente essere referenziata come chiave esterna in almeno una delle tre entità figlie.
-
+\\ \textbf{Semplificazioni degli attributi sulle pagine:} Essendo \texttt{NumeroPagineTotali} un attributo comune a tutte le sottoentità dell'entità \textbf{Pubblicazione}, si è deciso di spostarlo nella entità padre. Da qui si è optato di rimuovere l'attributo \texttt{Pagina finale} da \textbf{Articolo}, in quanto è facilmente calcolabile a partire da \texttt{Pagina iniziale} e \texttt{NumeroPagineTotali}. 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SER4.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/ER4.pdf} % image file path
     \caption{Schema ER modificato dopo la quarta revisione}
     \label{fig:label_immagine5}
 \end{figure}
@@ -335,12 +353,12 @@ Per implementare correttamente il legame logico, sono state definite relazioni e
 
 \noindent
 \textbf{Ristrutturazione della relazione "Scritto" e "Appartenenza", chiave su Autore:}
-La relazione \textit{Scritto} è stata ristrutturata in modo da inserire un'entità associativa, denominata \textit{Pubb-Autori}, che collega l'entità \textit{Autore} con l'entità \textit{Pubblicazione}. Questa scelta è motivata dalla necessità di rappresentare correttamente la relazione molti-a-molti tra autori e pubblicazioni, consentendo di gestire efficacemente i casi in cui una pubblicazione abbia più autori e un autore abbia più pubblicazioni. Lo stesso approccio è stato adottato per la relazione \textit{Appartenenza}, con l'introduzione dell'entità associativa \textit{Aut-Aff} che collega l'entità \textit{Autore} con l'entità \textit{Affiliazione}. Questa ristrutturazione consente di modellare in modo più flessibile le dinamiche di affiliazione degli autori, che possono essere associati a più enti nel tempo, e di mantenere una chiara tracciabilità delle relazioni tra autori e affiliazioni.
-\\ Infine, si è notato che l'entità \textit{Autore} non presenta chiavi candidate, in quanto non è specificato dalla richiesta che qualche combinazione di attributi possa fungere da identificatore univoco. Pertanto, è stato introdotto un nuovo attributo \textit{ID} come chiave primaria per l'entità \textit{Autore}, garantendo così l'univocità.
+La relazione \textbf{Scritto} è stata ristrutturata in modo da inserire un'entità associativa, denominata \textbf{PubbllicazioniAutori}, che collega l'entità \textbf{Autore} con l'entità \textbf{Pubblicazione}. Questa scelta è motivata dalla necessità di rappresentare correttamente la relazione molti-a-molti tra autori e pubblicazioni, consentendo di gestire efficacemente i casi in cui una pubblicazione abbia più autori e un autore abbia più pubblicazioni. Lo stesso approccio è stato adottato per la relazione \textit{Appartenenza}, con l'introduzione dell'entità associativa \textbf{AutoreAffiliazione} che collega l'entità \textbf{Autore} con l'entità \textbf{Affiliazione}. Questa ristrutturazione consente di modellare in modo più flessibile le dinamiche di affiliazione degli autori, che possono essere associati a più enti nel tempo, e di mantenere una chiara tracciabilità delle relazioni tra autori e affiliazioni.
+\\ Infine, si è notato che l'entità \textbf{Autore} presenta solo la superchiave, in quanto non è specificato dalla richiesta che qualche attributo possa fungere da identificatore univoco. Pertanto, è stato introdotto un nuovo attributo \textit{ID} come chiave candidata per l'entità \textbf{Autore}, garantendo così l'univocità.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{img/SERF.pdf} % image file path
+    \includegraphics[width=0.8\textwidth]{img/ER5.pdf} % image file path
     \caption{Schema ER finale senza le modifiche di dettaglio}
     \label{fig:label_immagine}
 \end{figure}
@@ -398,113 +416,11 @@ Di seguito viene presentata la sintassi SQL utilizzata per creare le tabelle del
 -- Tabella Affiliazioni
 CREATE TABLE affiliazioni
 (
-    nome varchar(100) NOT NULL,
-    telefono varchar(100) NOT NULL,
-    indirizzo varchar(100) NOT NULL,
+    nome varchar(100) NOT NULL ,
+    telefono varchar(100) NOT NULL ,
+    indirizzo varchar(100) NOT NULL ,
     tipo varchar(20),
-    CONSTRAINT affiliazione_pkey PRIMARY KEY (nome)
-);
-
--- Tabella Pubblicazioni
-CREATE TABLE IF NOT EXISTS articoli
-(
-    CodicePubblicazione integer NOT NULL,
-    tipo varchar(50) NOT NULL,
-    nome varchar(255) NOT NULL,
-    Npaginainiziale integer,
-    Nvolume integer,
-    luogoConferenza varchar(100),
-    annoConferenza integer,
-    CONSTRAINT articolo_pkey PRIMARY KEY (CodicePubblicazione ),
-    CONSTRAINT articolo_codice_pubblicazione_fkey FOREIGN KEY (CodicePubblicazione )
-        REFERENCES public.pubblicazioni (codice) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-);
-
--- Tabella AutoreAffiliazione
-CREATE TABLE autoreaffiliazione
-(
-    idAutore integer NOT NULL,
-    nomeAffiliazione varchar(255) NOT NULL,
-    CONSTRAINT auto_aff_pkey PRIMARY KEY (idautore, nomeaffiliazione),
-    CONSTRAINT auto_aff_id_autore_fkey FOREIGN KEY (idautore)
-        REFERENCES public.autori (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT auto_aff_nome_affiliazione_fkey FOREIGN KEY (nomeaffiliazione)
-        REFERENCES public.affiliazioni (nome) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
-
--- Tabella Autori
-CREATE TABLE autori
-(
-    id SERIAL NOT NULL,
-    nome varchar(100)  NOT NULL,
-    cognome varchar(100) NOT NULL,
-    email varchar(100) NOT NULL,
-    sitoweb varchar(100) NOT NULL,
-    CONSTRAINT autore_pkey PRIMARY KEY (id)
-);
-
-
--- Tabella Citazioni
-CREATE TABLE citazioni
-(
-    pubblicazioneCitante integer NOT NULL,
-    pubblicazioneCitata integer NOT NULL,
-    CONSTRAINT citazione_pkey PRIMARY KEY (pubblicazioneCitante, pubblicazioneCitata),
-    CONSTRAINT citazione_codice_pubblicazione_citante_fkey FOREIGN KEY (pubblicazioneCitante )
-        REFERENCES public.pubblicazioni (codice) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE,
-    CONSTRAINT citazione_codice_pubblicazione_citata_fkey FOREIGN KEY (pubblicazioneCitata )
-        REFERENCES public.pubblicazioni (codice) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
-);
-
--- Tabella Editori
-CREATE TABLE editori
-(
-    nome varchar(100) NOT NULL,
-    indirizzo varchar(255) NOT NULL,
-    CONSTRAINT editore_pkey PRIMARY KEY (nome)
-);
-
--- Tabella Libri
-CREATE TABLE libri
-(
-    CodicePubblicazione integer NOT NULL,
-    isbn varchar(17) UNIQUE NOT NULL,
-    nomeEditore varchar(100) NOT NULL,
-    CONSTRAINT libro_pkey PRIMARY KEY (CodicePubblicazione ),
-    CONSTRAINT libro_codice_pubblicazione_fkey FOREIGN KEY (CodicePubblicazione )
-        REFERENCES public.pubblicazioni (codice) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE,
-    CONSTRAINT libro_nome_editore_fkey FOREIGN KEY (nomeEditore)
-        REFERENCES public.editori (nome) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
--- Tabella PubblicazioneAutore
-CREATE TABLE pubblicazioneautore
-(
-    CodicePubblicazione integer NOT NULL,
-    idAutore integer NOT NULL,
-    CONSTRAINT pubb_autore_pkey PRIMARY KEY (CodicePubblicazione, idAutore),
-    CONSTRAINT pubb_autore_codice_pubblicazione_fkey FOREIGN KEY (CodicePubblicazione )
-        REFERENCES public.pubblicazioni (codice) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE,
-    CONSTRAINT pubb_autore_id_autore_fkey FOREIGN KEY (idAutore)
-        REFERENCES public.autori (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE
+    CONSTRAINT affiliazione_pkey PRIMARY KEY ( nome )
 );
 
 -- Tabella Pubblicazioni
@@ -513,28 +429,123 @@ CREATE TABLE pubblicazioni
     codice SERIAL NOT NULL,
     titolo varchar(200),
     annopubblicazione integer NOT NULL,
-    ncitazioni integer CHECK (ncitazioni > 0) DEFAULT 0,
-    npagine integer CHECK (npagine > 0) NOT NULL,
+    ncitazioni integer CHECK( ncitazioni > 0) DEFAULT 0 ,
+    npagine integer CHECK( npagine > 0) NOT NULL ,
     CONSTRAINT pubblicazione_pkey PRIMARY KEY (codice)
+);
+
+-- Tabella Articoli
+CREATE TABLE articoli(
+    CodicePubblicazione integer NOT NULL,
+    tipo varchar(50) NOT NULL CHECK(tipo IN ['Rivista', 'Conferenza']),
+    nome varchar(255) NOT NULL,
+    Npaginainiziale integer,
+    Nvolume integer,
+    luogoConferenza varchar(100),
+    annoConferenza integer,
+    CONSTRAINT articolo_pkey PRIMARY KEY (CodicePubblicazione),
+    CONSTRAINT articolo_codice_pubblicazione_fkey FOREIGN KEY (CodicePubblicazione)
+    REFERENCES public.pubblicazioni(codice) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
+);
+
+-- Tabella AutoreAffiliazione
+CREATE TABLE autoreaffiliazione
+(
+    idAutore integer NOT NULL,
+    nomeAffiliazione varchar(255) NOT NULL,
+    CONSTRAINT auto_aff_pkey PRIMARY KEY (idautore,nomeaffiliazione),
+    CONSTRAINT auto_aff_id_autore_fkey FOREIGN KEY (idautore)
+    REFERENCES public.autori(id) MATCH SIMPLE
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    CONSTRAINT auto_aff_nome_affiliazione_fkey FOREIGN KEY(nomeaffiliazione)
+    REFERENCES public.affiliazioni(nome) MATCH SIMPLE
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+-- Tabella Autori
+CREATE TABLE autori
+(
+    id SERIAL NOT NULL,
+    nome varchar(100) NOT NULL,
+    cognome varchar(100) NOT NULL,
+    email varchar(100) NOT NULL,
+    sitoweb varchar(100) NOT NULL,
+    CONSTRAINT autore_pkey PRIMARY KEY(id)
+);
+-- Tabella Citazioni
+CREATE TABLE citazioni
+(
+    pubblicazioneCitante integer NOT NULL ,
+    pubblicazioneCitata integer NOT NULL ,
+    CONSTRAINT citazione_pkey PRIMARY KEY (pubblicazioneCitante,pubblicazioneCitata),
+    CONSTRAINT citazione_codice_pubblicazione_citante_fkey FOREIGN KEY (pubblicazioneCitante)
+    REFERENCES public.pubblicazioni(codice) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE,
+    CONSTRAINT citazione_codice_pubblicazione_citata_fkey FOREIGN KEY (pubblicazioneCitata)
+    REFERENCES public.pubblicazioni(codice) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
+);
+-- Tabella Editori
+CREATE TABLE editori
+(
+    nome varchar(100) NOT NULL,
+    indirizzo varchar(255) NOT NULL,
+    CONSTRAINT editore_pkey PRIMARY KEY(nome)
+);
+-- Tabella Libri
+CREATE TABLE libri
+(
+    CodicePubblicazione integer NOT NULL,
+    isbn varchar(17) UNIQUE NOT NULL,
+    nomeEditore varchar(100) NOT NULL,
+    CONSTRAINT libro_pkey PRIMARY KEY (CodicePubblicazione),
+    CONSTRAINT libro_codice_pubblicazione_fkey FOREIGN KEY (CodicePubblicazione)
+    REFERENCES public.pubblicazioni(codice) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE,
+    CONSTRAINT libro_nome_editore_fkey FOREIGN KEY (nomeEditore)
+    REFERENCES public.editori(nome) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+);
+-- Tabella PubblicazioneAutore
+CREATE TABLE pubblicazioneautore
+(
+    CodicePubblicazione integer NOT NULL,
+    idAutore integer NOT NULL,
+    CONSTRAINT pubb_autore_pkey PRIMARY KEY (CodicePubblicazione,idAutore),
+    CONSTRAINT pubb_autore_codice_pubblicazione_fkey FOREIGN KEY (CodicePubblicazione)
+    REFERENCES public.pubblicazioni(codice) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE,
+    CONSTRAINT pubb_autore_id_autore_fkey FOREIGN KEY (idAutore)
+    REFERENCES public.autori(id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE
 );
 
 -- Tabella Tesi
 CREATE TABLE tesi
 (
-    CodicePubblicazione integer NOT NULL,
-    argomento text NOT NULL,
-    nomeAffiliazione varchar(255) NOT NULL,
-    CONSTRAINT tesi_pkey PRIMARY KEY (CodicePubblicazione ),
-    CONSTRAINT tesi_codice_pubblicazione_fkey FOREIGN KEY (CodicePubblicazione )
-        REFERENCES public.pubblicazioni (codice) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE CASCADE,
+    CodicePubblicazione integer NOT NULL ,
+    argomento text NOT NULL ,
+    nomeAffiliazione varchar (255) NOT NULL ,
+    CONSTRAINT tesi_pkey PRIMARY KEY ( CodicePubblicazione ) ,
+    CONSTRAINT tesi_codice_pubblicazione_fkey FOREIGN KEY (CodicePubblicazione)
+    REFERENCES public.pubblicazioni(codice) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE CASCADE ,
     CONSTRAINT tesi_nome_affiliazione_fkey FOREIGN KEY (nomeAffiliazione)
-        REFERENCES public.affiliazioni (nome) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+    REFERENCES public.affiliazioni ( nome ) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
 );
-
 \end{lstlisting}
 
 \subsection{Popolamento del database} \label{subsec:popolamento}
@@ -566,6 +577,9 @@ Università Ca' Foscari Venezia    & 041-2345111 & Dorsoduro 3246, Venezia      
 Area Science Park                 & 040-3755111 & Padriciano 99, Trieste             & Ente di ricerca \\
 OGS                               & 040-21401   & Borgo Grotta Gigante 42/C, Sgonico & Ente di ricerca \\
 CRO Aviano                        & 0434-659111 & Via Franco Gallini 2, Aviano       & Ente di ricerca \\
+Università degli Studi di Trento  & 0471-011000 & Via Calepina 14, Trento            & Università      \\
+Libera Università di Bolzano      & 0471-011000 & Piazza Università 1, Bolzano       & Università  \\
+Fondazione Bruno Kessler          & 0461-314200 & Via Santa Croce 77, Trento       & Ente di ricerca \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -576,7 +590,7 @@ Su richiesta del docente, abbiamo deciso di implementare i trigger più interess
 \subsubsection*{Proprietà logiche dei vincoli sulle citazioni}
 \textbf{Non Autocitazione}: Una pubblicazione non può citare sé stessa. Questo è il vincolo più elementare e serve a prevenire l'inserimento di dati logicamente inconsistenti, garantendo che il conteggio delle citazioni rifletta solo i riferimenti esterni.\\
 \textbf{Non Citazione Circolare}: Una pubblicazione A non può citare una pubblicazione B se B cita già A, direttamente o indirettamente. Questo vincolo impedisce la formazione di cicli di citazione che potrebbero distorcere il conteggio delle citazioni e complicare l'analisi bibliometrica.\\
-\textbf{Nota sul Vincolo Temporale}: Una pubblicazione non può citare un'altra pubblicazione con un anno di pubblicazione successivo. Pur riconoscendo l'esistenza di casi come i preprint nel mondo reale questo vincolo è assunto logicamente come rilevante ed è implementato nel database.\\
+\textbf{Nota sul Vincolo Temporale}: Una pubblicazione non può citare un'altra pubblicazione con un anno di pubblicazione successivo. Pur riconoscendo l'esistenza di casi come i preprint nel mondo reale, questo vincolo è assunto logicamente come rilevante ed è implementato nel database.\\
 
 \subsubsection{Trigger per l'incremento del numero di citazioni}
 Il trigger \texttt{inc\_n\_citazioni} è progettato per gestire l'incremento del numero di citazioni di una pubblicazione ogni volta che viene inserita una nuova citazione che la riguarda. Il trigger esegue le seguenti operazioni:
@@ -611,8 +625,14 @@ CREATE OR REPLACE FUNCTION inc_n_citazioni()
         IF v_anno_citante < v_anno_citata THEN
             RAISE EXCEPTION 'Una pubblicazione può citare solo pubblicazioni contemporanee o più vecchie';
         END IF;
+		--Se A cita B, B non può citare A
+        IF v_anno_citante = v_anno_citata THEN
+			IF EXISTS( SELECT *	FROM CITAZIONI	WHERE pubblicazionecitata = NEW.PubblicazioneCitante AND pubblicazionecitante = NEW.PubblicazioneCitata) THEN
+				RAISE EXCEPTION 'Creazione di una citazione ciclica';
+			END IF;
+		END IF;
 
-        -- Aggiornamento diretto (molto più efficiente)
+		--Aggiornamento
         UPDATE public.pubblicazioni
         SET ncitazioni = ncitazioni + 1
         WHERE codice = NEW.PubblicazioneCitata;
@@ -624,8 +644,6 @@ $$;
 CREATE TRIGGER trg_ins_CIT
 BEFORE INSERT ON public.citazioni
 FOR EACH ROW EXECUTE FUNCTION inc_n_citazioni();
-
----
 
 \end{lstlisting}
 
@@ -650,7 +668,12 @@ Tentativo di auto-citazione da parte di una pubblicazione. &
 Pubbl. Citante: 1001 (2024)\newline Pubbl. Citata: 1001 (2024) & 
 \textbf{Errore}:\newline "Una pubblicazione non si può citare da sola" \\ 
 \midrule
-\textbf{TC-03: Violazione della Coerenza Temporale} & 
+\textbf{TC-03: Caso di Citazione Circolare} & 
+Tentativo di citazione circolare tra due pubblicazioni. & 
+Pubbl. Citante: 1001 (2024)\newline Pubbl. Citata: 1002 (2024)\newline Pubbl. Citante: 1002 (2024)\newline Pubbl. Citata: 1001 (2024) & 
+\textbf{Errore}:\newline "Creazione di una citazione ciclica" \\ 
+\midrule
+\textbf{TC-04: Violazione della Coerenza Temporale} & 
 Violazione della coerenza temporale (citazione verso il futuro). & 
 Pubbl. Citante: 1001 (2024)\newline Pubbl. Citata: 1003 (2026) & 
 \textbf{Errore}:\newline "Una pubblicazione può citare solo pubblicazioni contemporanee o più vecchie" \\ 
@@ -667,23 +690,17 @@ Il vincolo di non ciclicità presenta una zona grigia specifica al di fuori di q
     \caption{Esempio di citazioni circolari fra pubblicazioni dello stesso anno.}
     \label{fig:citazioni_circolari}
 \end{figure}
-Per gesitre questo caso, sono stati valutati tre strategie opposte:
-\\ \textbf{Strategia 1: Non gestire i cicli intra-anno}
-\\Questa è la strategia più conservativa, che accetta la possibilità di citazioni circolari all'interno dello stesso anno. Questa strategia si giustifica perché evita la sovraccaricazione della base di dati con un ulteriore operazione complessa dal punto di vista del costo temporale. Inoltre se dal punto di visto logico può risultare incoerente, comunque si può accettare che diverse pubblicazioni dello stesso anno si citino fra di loro, specie se sono in corso di pubblicazione. Questa scelta privilegia le prestazioni, di conseguenza è quella che è stata selezionata come opzione migliore
+Per gesitre questo caso, sono state valutate tre strategie opposte:
+\\ \textbf{Strategia 1: Non gestire tutti i possibili cicli intra-anno}
+\\Questa è la strategia più conservativa, che accetta la possibilità di citazioni circolari all'interno dello stesso anno. Si può decidere di gestire velocemente solo i cicli con due componenti. Questa strategia si giustifica perché evita la sovraccaricazione della base di dati con un ulteriore operazione complessa dal punto di vista del costo temporale. Questa scelta privilegia le prestazioni, di conseguenza è quella che è stata selezionata come opzione migliore. 
 \\ \textbf{Strategia 2: Sostituire l'anno con una data completa}
 \\ Cambiando l'attributo \textit{AnnoPubblicazione} con una data completa (es. \textit{DataPubblicazione}), si potrebbe implementare un controllo più preciso che impedisce le citazioni circolari anche fra pubblicazioni dello stesso anno. Tuttavia, questa strategia richiede una modifica non richiesta dai requisiti del progetto, comporta un aumento della complessità del modello e potrebbe non essere giustificata se i dati disponibili non includono informazioni più granulari sulla data di pubblicazione. 
 \\ \textbf{Strategia 3: Implementare un controllo di ciclicità più complesso}
-\\ In alternativa, per un controllo rigoroso a livello logico, si potrebbbe implementare un algoritmo di rilevamento dei cicli. Un algoritmo pensato per questo scopo è quello basato sulla visità in profondità (DFS) del grafo, mantenendo come vertici le pubblicazioni e come archi le citazioni. Per evitare che questa visita diventi troppo onerosa, si è pensato che andrebbe limitata ad un certo numero di livelli (es. 3-4 livelli) per evitare un'esplorazione troppo ampia del grafo. L'analisi di questa strategia è che avendo un alto numero di citazioni per pubblicazione, la verifica del grafo ad ogni inserimento risulta sempre troppo onerosa (complessità dell'algoritmo DFS è O(V+E), dove V è il numero di pubblicazioni e E è il numero di citazioni). Si conclude che il tradeoff tra coerenza logica e prestazioni è troppo sbilanciato con questa strategia.
+\\ In alternativa, per un controllo rigoroso a livello logico, si potrebbbe implementare un algoritmo di rilevamento dei cicli. Un algoritmo pensato per questo scopo è quello basato sulla visita in profondità (DFS) del grafo, mantenendo come vertici le pubblicazioni e come archi le citazioni. Per evitare che questa visita diventi troppo onerosa, si è pensato che andrebbe limitata ad un certo numero di livelli (es. 3-4 livelli) per evitare un'esplorazione troppo ampia del grafo. L'analisi di questa strategia è che avendo un alto numero di citazioni per pubblicazione, la verifica del grafo ad ogni inserimento risulta sempre troppo onerosa (complessità dell'algoritmo DFS è O(V+E), dove V è il numero di pubblicazioni e E è il numero di citazioni). Si conclude che il tradeoff tra coerenza logica e prestazioni è troppo sbilanciato con questa strategia.
 
 \subsubsection{Trigger per il decremento del numero di citazioni}
 A seguito di una cancellazione di una citazione, è necessario decrementare il numero di citazioni della pubblicazione citata. 
 \begin{lstlisting}
-CREATE TRIGGER trg_ins_CIT
-BEFORE INSERT ON public.citazioni
-FOR EACH ROW EXECUTE FUNCTION inc_n_citazioni();
-
----
-
 -- 2. TRIGGER PER LA CANCELLAZIONE (Decremento)
 CREATE OR REPLACE FUNCTION dec_n_citazioni()
     RETURNS TRIGGER LANGUAGE plpgsql AS $$
@@ -697,11 +714,10 @@ CREATE OR REPLACE FUNCTION dec_n_citazioni()
     END;
 $$;
 
-CREATE TRIGGER trg_dec_CIT
+CREATE TRIGGER trg_rim_CIT
 BEFORE DELETE ON public.citazioni
 FOR EACH ROW EXECUTE FUNCTION dec_n_citazioni();
 
----
 \end{lstlisting}
 
 \subsubsection{Trigger per bloccare l'update delle citazioni}
@@ -718,6 +734,7 @@ $$;
 CREATE TRIGGER trg_upd_CIT
 BEFORE UPDATE ON public.citazioni
 FOR EACH ROW EXECUTE FUNCTION updt_citazioni();
+
 \end{lstlisting}
 \subsubsection{Trigger per il controllo dell'affiliazione universitaria nelle tesi}
 Il trigger \texttt{trg\_TESI} è progettato per garantire che ogni tesi inserita nel database sia associata a un'affiliazione di tipo "Università" e che questa affiliazione sia effettivamente collegata ad almeno uno degli autori della tesi. Questo controllo è fondamentale per mantenere l'integrità dei dati e assicurare che le tesi siano correttamente categorizzate all'interno del contesto accademico.\\
@@ -770,24 +787,24 @@ Ecco alcuni casi di test per validare il corretto funzionamento del trigger \tex
 \toprule
 \textbf{ID Test} & \textbf{Scenario / Descrizione} & \textbf{Dati di Input} & \textbf{Risultato Atteso} \\ 
 \midrule
-\textbf{TC-06: Affiliazione non universitaria} & 
+\textbf{TC-01: Affiliazione non universitaria} & 
 Tentativo di inserire una tesi indicando un'affiliazione censita nel sistema, ma che non è un'istituzione universitaria (bensì un Ente di Ricerca). & 
 Cod. Pubblicazione: 4001\newline Argomento: 'Bioinformatica applicata'\newline Affiliazione inserita: 'CRO Aviano'\newline Affiliazione autori: 'CRO Aviano' & 
 \textbf{Errore}:\newline "Università inserita non corretta o non presente nel db" \\ 
 \midrule
-\textbf{TC-07: Discordanza di affiliazioni} & 
+\textbf{TC-02: Discordanza di affiliazioni} & 
 Tentativo di inserire una tesi indicando un'Università valida nel sistema, ma alla quale nessun autore della pubblicazione risulta affiliato. & 
 Cod. Pubblicazione: 4001\newline Argomento: 'Bioinformatica applicata'\newline Affiliazione inserita: 'Università degli Studi di Padova', 'SISSA'\newline Affiliazione autori: 'Università degli Studi di Udine' & 
 \textbf{Errore}:\newline "Università inserita non è affiliata neanche ad un autore" \\ 
 \midrule
-\textbf{TC-08: Caso Valido} & 
+\textbf{TC-03: Caso Valido} & 
 Inserimento valido di una tesi in cui l'università indicata è corretta e coincide con l'affiliazione di almeno un autore. & 
 Cod. Pubblicazione: 4001\newline Argomento: 'Bioinformatica applicata'\newline Affiliazione inserita: 'Università degli Studi di Udine'\newline Affiliazione autori: 'Università degli Studi di Udine' & 
 \textbf{Successo}:\newline Transazione eseguita e record inserito nella tabella \texttt{tesi}. \\ 
 \bottomrule
 \end{tabularx}
 \end{table}
-
+\newpage
 \subsubsection{Implementazione di trigger esterni alla richiesta}
 Per garantire l'integrità dei dati all'interno del database, sono stati implementati altri trigger esclusi dalla richiesta:
 \begin{itemize}
@@ -813,21 +830,21 @@ Di seguito vengono presentate le query SQL per rispondere alle domande specifich
 \subsection*{Q1: Autore con più pubblicazioni per ogni affiliazione}
  Stampare il nome dell'autore che detiene il maggior numero di pubblicazioni per ogni singola affiliazione.
 \begin{lstlisting}
-SELECT a.nome, a.cognome, aa.nome_affiliazione
-FROM AUTORE a
-JOIN PUBB_AUTORE pa ON a.id = pa.id_autore
-JOIN AUTO_AFF aa ON a.id = aa.id_autore
-GROUP BY a.id, a.nome, a.cognome, aa.nome_affiliazione
-HAVING COUNT(pa.codice_pubblicazione) = (
+SELECT a.Nome, a.Cognome, aa.NomeAffiliazione
+FROM AUTORI a
+JOIN PUBBLICAZIONEAUTORE pa ON a.ID = pa.IDAutore
+JOIN AUTOREAFFILIAZIONE aa ON a.ID = aa.IDAutore
+GROUP BY a.ID, a.Nome, a.Cognome, aa.NomeAffiliazione
+HAVING COUNT(pa.CodicePubblicazione) = (
     SELECT MAX(cnt)
     FROM (
-        SELECT COUNT(pa2.codice_pubblicazione) AS cnt
-        FROM AUTORE a2
-        JOIN PUBB_AUTORE pa2 ON a2.id = pa2.id_autore
-        JOIN AUTO_AFF aa2 ON a2.id = aa2.id_autore
-        WHERE aa2.nome_affiliazione = aa.nome_affiliazione
-        GROUP BY a2.id
-    ) sub
+        SELECT COUNT(pa2.CodicePubblicazione) AS cnt
+        FROM AUTORI a2
+        JOIN PUBBLICAZIONEAUTORE pa2 ON a2.ID = pa2.IDAutore
+        JOIN AUTOREAFFILIAZIONE aa2 ON a2.ID = aa2.IDAutore
+        WHERE aa2.NomeAffiliazione = aa.NomeAffiliazione
+        GROUP BY a2.ID
+    )
 );
 \end{lstlisting}
 
@@ -837,22 +854,23 @@ Dal punto di vista del codice, per calcolare il massimo numero di pubblicazioni 
 \subsection*{Q2: Coppie che hanno pubblicato sempre e solo insieme}
 Stampare le coppie di autori che hanno collaborato sempre e solo tra di loro (ovvero, ogni loro pubblicazione è stata fatta in coppia). 
 \begin{lstlisting}
-SELECT pa1.id_autore, pa2.id_autore
-FROM PUBB_AUTORE pa1
-JOIN PUBB_AUTORE pa2 
-    ON pa1.codice_pubblicazione = pa2.codice_pubblicazione 
-    AND pa1.id_autore < pa2.id_autore
-GROUP BY pa1.id_autore, pa2.id_autore
-HAVING COUNT(DISTINCT pa1.codice_pubblicazione) = (
+SELECT pa1.idAutore, pa2.idAutore
+FROM pubblicazioneautore pa1
+JOIN pubblicazioneautore pa2 
+    ON pa1.CodicePubblicazione = pa2.CodicePubblicazione 
+    AND pa1.idAutore < pa2.idAutore
+GROUP BY pa1.idAutore, pa2.idAutore
+HAVING COUNT(DISTINCT pa1.CodicePubblicazione) = (
     SELECT COUNT(*) 
-    FROM PUBB_AUTORE pa
-    WHERE pa.id_autore = pa1.id_autore
+    FROM pubblicazioneautore pa
+    WHERE pa.idAutore = pa1.idAutore
 )
-AND COUNT(DISTINCT pa2.codice_pubblicazione) = (
+AND COUNT(DISTINCT pa2.CodicePubblicazione) = (
     SELECT COUNT(*) 
-    FROM PUBB_AUTORE pa
-    WHERE pa.id_autore = pa2.id_autore
+    FROM pubblicazioneautore pa
+    WHERE pa.idAutore = pa2.idAutore
 );
+
 \end{lstlisting}
 
 Per implementare questa operazione, che cerca le coppie di autori che hanno collaborato sempre e solo tra di loro, si è deciso di utilizzare una join sulla tabella di associazione PUBB\_AUTORE . Per evitare di analizzare due volte la stessa coppia o contare permutazioni speculari, si applica la condizione pa1.id\_autore < pa2.id\_autore. Successivamente, la condizione di esclusività viene garantita controllando tramite HAVING che il numero di pubblicazioni fatte insieme coincida con il totale assoluto delle pubblicazioni del primo autore e, simultaneamente, del secondo autore.
@@ -862,19 +880,19 @@ Per implementare questa operazione, che cerca le coppie di autori che hanno coll
 Stampare gli autori che non hanno mai prodotto pubblicazioni con co-autori appartenenti a un'affiliazione diversa dalla propria.
 \begin{lstlisting}
 SELECT a.id, a.nome, a.cognome
-FROM AUTORE a
+FROM autori a
 WHERE NOT EXISTS (
     SELECT 1
-    FROM PUBB_AUTORE pa1
-    JOIN PUBB_AUTORE pa2
-        ON pa1.codice_pubblicazione = pa2.codice_pubblicazione
-        AND pa1.id_autore <> pa2.id_autore
-    JOIN AUTO_AFF aa1
-        ON aa1.id_autore = pa1.id_autore
-    JOIN AUTO_AFF aa2
-        ON aa2.id_autore = pa2.id_autore
-    WHERE pa1.id_autore = a.id
-      AND aa1.nome_affiliazione <> aa2.nome_affiliazione
+    FROM pubblicazioneautore pa1
+    JOIN pubblicazioneautore pa2
+        ON pa1.CodicePubblicazione = pa2.CodicePubblicazione
+       AND pa1.idAutore <> pa2.idAutore
+    JOIN autoreaffiliazione aa1
+        ON aa1.idAutore = pa1.idAutore
+    JOIN autoreaffiliazione aa2
+        ON aa2.idAutore = pa2.idAutore
+    WHERE pa1.idAutore = a.id
+      AND aa1.nomeAffiliazione <> aa2.nomeAffiliazione
 );
 \end{lstlisting}
 \paragraph{}
@@ -884,24 +902,22 @@ L'implementazione di questa ricerca si basa su un approccio logico per sottrazio
 \subsection*{Q4: Autori con solo articoli di successo (min. 5 citazioni a 2 anni)}
 Trovare gli autori che hanno pubblicato esclusivamente articoli i quali, a distanza di 2 anni dalla data di pubblicazione, hanno accumulato almeno 5 citazioni.
 \begin{lstlisting}
-SELECT a.id, a.nome, a.cognome
-FROM public.autore a
--- Condizione A: L'autore deve aver pubblicato almeno un articolo
+SELECT a.ID, a.Nome, a.Cognome
+FROM AUTORI a
 WHERE EXISTS (
-    SELECT 1 FROM public.pubb_autore pa WHERE pa.id_autore = a.id
+    SELECT 1 FROM PUBBLICAZIONEAUTORE pa WHERE pa.IDAutore = a.ID
 )
--- Condizione B: NON deve esistere alcuna sua pubblicazione "flop"
 AND NOT EXISTS (
     SELECT 1
-    FROM public.pubb_autore pa
-    JOIN public.pubblicazione p ON pa.codice_pubblicazione = p.codice
-    WHERE pa.id_autore = a.id
+    FROM PUBBLICAZIONEAUTORE pa
+    JOIN PUBBLICAZIONI p ON pa.CodicePubblicazione = p.Codice
+    WHERE pa.IDAutore = a.ID
       AND (
           SELECT COUNT(*)
-          FROM public.citazione c
-          JOIN public.pubblicazione pc ON c.codice_pubblicazione_citante = pc.codice
-          WHERE c.codice_pubblicazione_citata = p.codice
-            AND (pc.annopubblicazione - p.annopubblicazione) <= 2
+          FROM CITAZIONI c
+          JOIN PUBBLICAZIONI pc ON c.PubblicazioneCitante = pc.Codice
+          WHERE c.PubblicazioneCitata = p.Codice
+            AND (pc.AnnoPubblicazione - p.AnnoPubblicazione) <= 2
       ) < 5
 );
 \end{lstlisting}
@@ -918,4 +934,42 @@ Il limite risiede nella natura stessa dell'attributo ridondante:
 \end{itemize}
 
 Di conseguenza, per soddisfare il requisito, è necessario ignorare il valore pre-calcolato ed effettuare un calcolo dinamico accedendo direttamente alla relazione \texttt{CITAZIONI}. Questo processo permette di confrontare gli attributi \texttt{Anno} della pubblicazione citante e di quella citata, operazione indispensabile per isolare il sottoinsieme di riferimenti bibliografici pertinenti all'analisi richiesta.
+\section{Implementazione operazioni principali in SQL}
+Di seguito vengono presentati i codici SQL per implementare le operazioni principali richieste:
+\begin{lstlisting}
+--OPERAZIONE 1
+SELECT * FROM PUBBLICAZIONI;
+
+--OPERAZIONE 2
+INSERT INTO PUBBLICAZIONI (titolo, annopubblicazione, npagine) VALUES ('P vs NP', 2021, 100);
+
+--OPERAZIONE 3
+INSERT INTO AUTORI (Nome, Cognome, Email, SitoWeb) VALUES ('Pinco', 'Pallo', 'pp@tim.it', 'www.pinco.it');
+
+--OPERAZIONE 4
+UPDATE AFFILIAZIONI SET indirizzo = 'Piazza Europa, Trento' WHERE indirizzo = 'Piazzale Europa, Trento';
+
+\end{lstlisting}
+\newpage
+\section{Autori}
+\begin{table}[htbp]
+\centering
+\small
+\caption{Autori del progetto.}
+\label{tab:autori}
+\begin{tabularx}{\textwidth}{X X l X}
+\toprule
+\textbf{Nome} & \textbf{Cognome} & \textbf{E-mail} & \textbf{Matricola} \\ 
+\midrule
+Stefano & Toneguzzo & stefano.toneguzzo@spes.uniud.it & 168579 \\ 
+\midrule
+Luigi & Pascu & luigi.pascu@spes.uniud.it & 166851 \\ 
+\midrule
+Matteo & Passador & matteo.passador@spes.uniud.it & 168215 \\
+\midrule 
+Federico & Del Pup & federico.delpup@spes.uniud.it & 167087 \\ 
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \end{document}
