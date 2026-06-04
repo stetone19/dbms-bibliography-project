@@ -14,7 +14,7 @@ CREATE TABLE pubblicazioni
     codice SERIAL NOT NULL,
     titolo varchar(200),
     annopubblicazione integer NOT NULL,
-    ncitazioni integer CHECK( ncitazioni > 0) DEFAULT 0 ,
+    ncitazioni integer CHECK( ncitazioni >= 0) DEFAULT 0 ,
     npagine integer CHECK( npagine > 0) NOT NULL ,
     CONSTRAINT pubblicazione_pkey PRIMARY KEY (codice)
 );
@@ -22,7 +22,7 @@ CREATE TABLE pubblicazioni
 -- Tabella Articoli
 CREATE TABLE articoli(
     CodicePubblicazione integer NOT NULL,
-    tipo varchar(50) NOT NULL CHECK(tipo IN ['Rivista', 'Conferenza']),
+    tipo varchar(50) NOT NULL CHECK(tipo IN ('Rivista', 'Conferenza')),
     nome varchar(255) NOT NULL,
     Npaginainiziale integer,
     Nvolume integer,
@@ -279,7 +279,7 @@ CREATE OR REPLACE FUNCTION check_articolo()
         IF NEW.Nvolume IS NOT NULL THEN 
             RAISE EXCEPTION 'Un articolo di tipo Conferenza non può avere un Numero di Volume';
         END IF;
-        
+    END IF;
     IF NEW.Tipo = 'Rivista' THEN
         IF NEW.Nvolume IS NULL THEN 
             RAISE EXCEPTION 'Per gli articoli di tipo Rivista è obbligatorio inserire il Numero del Volume';
@@ -287,7 +287,7 @@ CREATE OR REPLACE FUNCTION check_articolo()
         IF NEW.LuogoConferenza IS NOT NULL OR NEW.AnnoConferenza IS NOT NULL THEN
             RAISE EXCEPTION 'Un articolo di tipo Rivista non può avere Luogo o Anno Conferenza';
         END IF;
-        
+    END IF;
     ELSE
         RAISE EXCEPTION 'Il tipo di articolo inserito non è valido (Specificare "Conferenza" o "Rivista")';
     END IF;
@@ -448,7 +448,7 @@ INSERT INTO PUBBLICAZIONI (titolo, annopubblicazione, npagine) VALUES
 ('La bora: modelli meteorologici di precisione', 2020, 22),
 ('Nuovi recettori nelle cellule tumorali epatiche', 2021, 14),
 ('Efficienza energetica nei data center', 2022, 200),
-('Tesi in Progetto di Basi di Dati', 2026, 0),
+('Tesi in Progetto di Basi di Dati', 2026, 10),
 ('Tesi: Reti neurali per la sismologia', 2023, 95),
 ('Tesi sulle correnti del Golfo di Trieste', 2021, 130),
 ('Tesi in Ingegneria Clinica applicata', 2020, 105),
