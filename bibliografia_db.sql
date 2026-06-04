@@ -288,9 +288,6 @@ CREATE OR REPLACE FUNCTION check_articolo()
             RAISE EXCEPTION 'Un articolo di tipo Rivista non può avere Luogo o Anno Conferenza';
         END IF;
     END IF;
-    ELSE
-        RAISE EXCEPTION 'Il tipo di articolo inserito non è valido (Specificare "Conferenza" o "Rivista")';
-    END IF;
     
     RETURN NEW;
 END;
