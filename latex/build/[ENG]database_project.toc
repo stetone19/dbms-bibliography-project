@@ -28,12 +28,12 @@
 \contentsline {subsection}{\numberline {4.2}Database Population}{17}{}%
 \contentsline {subsection}{\numberline {4.3}Trigger}{18}{}%
 \contentsline {subsubsection}{\numberline {4.3.1}Trigger for incrementing the number of citations}{18}{}%
-\contentsline {subsubsection}{\numberline {4.3.2}Trigger per il decremento del numero di citazioni}{21}{}%
-\contentsline {subsubsection}{\numberline {4.3.3}Trigger per bloccare l'update delle citazioni}{22}{}%
-\contentsline {subsubsection}{\numberline {4.3.4}Trigger per il controllo dell'affiliazione universitaria nelle tesi}{22}{}%
-\contentsline {subsubsection}{\numberline {4.3.5}Implementazione di trigger esterni alla richiesta}{25}{}%
+\contentsline {subsubsection}{\numberline {4.3.2}Trigger for decrementing citation count}{21}{}%
+\contentsline {subsubsection}{\numberline {4.3.3}Trigger to block citation updates}{22}{}%
+\contentsline {subsubsection}{\numberline {4.3.4}Trigger to check university affiliation in theses}{22}{}%
+\contentsline {subsubsection}{\numberline {4.3.5}Implementation of triggers external to the requirement}{25}{}%
 \contentsline {section}{\numberline {5}Query}{25}{}%
 \contentsline {paragraph}{}{27}{}%
-\contentsline {paragraph}{Nota sull'inefficacia dell'attributo derivato nella query Q4:}{28}{}%
-\contentsline {section}{\numberline {6}Implementazione operazioni principali in SQL}{28}{}%
-\contentsline {section}{\numberline {7}Autori}{29}{}%
+\contentsline {paragraph}{Note on the ineffectiveness of the derived attribute in query Q4:}{28}{}%
+\contentsline {section}{\numberline {6}Implementation of Main Operations in SQL}{28}{}%
+\contentsline {section}{\numberline {7}Authors}{29}{}%

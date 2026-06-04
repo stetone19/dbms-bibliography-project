@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.24)  4 JUN 2026 13:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.3.24)  4 JUN 2026 21:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -455,58 +455,83 @@ Underfull \hbox (badness 10000) in paragraph at lines 683--683
  []
 
 
-Underfull \hbox (badness 2790) in paragraph at lines 683--683
-\T1/cmr/m/n/10.95 una ci-ta-zio-ne ver-so
+Underfull \hbox (badness 2717) in paragraph at lines 683--683
+[]|\T1/cmr/m/n/10.95 Citing Pub.: 1001
+ []
+
+
+Underfull \hbox (badness 4954) in paragraph at lines 683--683
+\T1/cmr/m/n/10.95 Cited Pub.: 1002
+ []
+
+
+Underfull \hbox (badness 4036) in paragraph at lines 683--683
+[]|\T1/cmr/bx/n/10.95 Success\T1/cmr/m/n/10.95 : Tran-sac-
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 683--683
-\T1/cmr/m/n/10.95 una pub-bli-ca-zio-ne
- []
-
-
-Underfull \hbox (badness 2809) in paragraph at lines 683--683
-[]|\T1/cmr/bx/n/10.95 Successo\T1/cmr/m/n/10.95 : Tran-sa-
- []
-
-
-Underfull \hbox (badness 2173) in paragraph at lines 683--683
-[]|\T1/cmr/bx/n/10.95 TC-02: Ca-so di
- []
-
-
-Underfull \hbox (badness 7504) in paragraph at lines 683--683
-[]|\T1/cmr/m/n/10.95 Tentativo di auto-
+[]|\T1/cmr/bx/n/10.95 TC-02: Self-
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 683--683
-\T1/cmr/m/n/10.95 "Una pub-bli-ca-zio-ne
+[]|\T1/cmr/m/n/10.95 Attempted self-
  []
 
 
-Underfull \hbox (badness 1448) in paragraph at lines 683--683
-[]|\T1/cmr/bx/n/10.95 TC-04: Vio-la-zio-
+Underfull \hbox (badness 2717) in paragraph at lines 683--683
+[]|\T1/cmr/m/n/10.95 Citing Pub.: 1001
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 683--683
-\T1/cmr/m/n/10.95 "Una pub-bli-ca-zio-
+Underfull \hbox (badness 4954) in paragraph at lines 683--683
+\T1/cmr/m/n/10.95 Cited Pub.: 1001
  []
 
 
 Underfull \hbox (badness 3417) in paragraph at lines 683--683
-\T1/cmr/m/n/10.95 ne può ci-ta-re so-lo
+[]|\T1/cmr/bx/n/10.95 TC-03: Cir-cu-lar
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 683--683
-\T1/cmr/m/n/10.95 pub-bli-ca-zio-ni con-
+[]|\T1/cmr/m/n/10.95 Attempted cir-cu-lar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 683--683
-\T1/cmr/m/n/10.95 tem-po-ra-nee o più
+Underfull \hbox (badness 2717) in paragraph at lines 683--683
+[]|\T1/cmr/m/n/10.95 Citing Pub.: 1001
+ []
+
+
+Underfull \hbox (badness 4954) in paragraph at lines 683--683
+\T1/cmr/m/n/10.95 Cited Pub.: 1002
+ []
+
+
+Underfull \hbox (badness 2717) in paragraph at lines 683--683
+\T1/cmr/m/n/10.95 Citing Pub.: 1002
+ []
+
+
+Underfull \hbox (badness 4954) in paragraph at lines 683--683
+\T1/cmr/m/n/10.95 Cited Pub.: 1001
+ []
+
+
+Underfull \hbox (badness 2717) in paragraph at lines 683--683
+[]|\T1/cmr/m/n/10.95 Citing Pub.: 1001
+ []
+
+
+Underfull \hbox (badness 4954) in paragraph at lines 683--683
+\T1/cmr/m/n/10.95 Cited Pub.: 1003
+ []
+
+
+Underfull \hbox (badness 3088) in paragraph at lines 683--683
+\T1/cmr/m/n/10.95 "A pu-bli-ca-tion can
  []
 
 <img/Circolare.pdf, id=181, 1728.46754pt x 913.03107pt>
@@ -520,33 +545,48 @@ Underfull \hbox (badness 10000) in paragraph at lines 807--807
  []
 
 
-Underfull \hbox (badness 2790) in paragraph at lines 807--807
-[]|\T1/cmr/m/n/10.95 Tentativo di in-se-ri-
- []
-
-
-Underfull \hbox (badness 4792) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 che non è un'i-sti-
- []
-
-
-Underfull \hbox (badness 1377) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 tu-zio-ne uni-ver-si-ta-ria
- []
-
-
-Underfull \hbox (badness 1748) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Argomento: 'Bioin-
- []
-
-
-Underfull \hbox (badness 5924) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Affiliazione in-se-ri-ta:
+Underfull \hbox (badness 10000) in paragraph at lines 807--807
+[]|\T1/cmr/bx/n/10.95 TC-01: Non-
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Affiliazione au-to-ri:
+\T1/cmr/bx/n/10.95 university af-fi-lia-
+ []
+
+
+Underfull \hbox (badness 1590) in paragraph at lines 807--807
+\T1/cmr/m/n/10.95 the-sis in-di-ca-ting an
+ []
+
+
+Underfull \hbox (badness 6708) in paragraph at lines 807--807
+\T1/cmr/m/n/10.95 af-fi-lia-tion re-gi-ste-red
+ []
+
+
+Underfull \hbox (badness 1603) in paragraph at lines 807--807
+\T1/cmr/m/n/10.95 in the sy-stem, but
+ []
+
+
+Underfull \hbox (badness 2744) in paragraph at lines 807--807
+\T1/cmr/m/n/10.95 si-ty in-sti-tu-tion (in-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 807--807
+[]|\T1/cmr/m/n/10.95 Publication Co-de:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 807--807
+\T1/cmr/m/n/10.95 Entered af-fi-lia-tion:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 807--807
+\T1/cmr/m/n/10.95 Author af-fi-lia-tion:
  []
 
 
@@ -561,42 +601,22 @@ Underfull \hbox (badness 1325) in paragraph at lines 807--807
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 807--807
-[]|\T1/cmr/bx/n/10.95 TC-02: Di-scor-
- []
-
-
-Underfull \hbox (badness 2790) in paragraph at lines 807--807
-[]|\T1/cmr/m/n/10.95 Tentativo di in-se-ri-
- []
-
-
-Underfull \hbox (badness 1748) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Argomento: 'Bioin-
- []
-
-
-Underfull \hbox (badness 5924) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Affiliazione in-se-ri-ta:
+[]|\T1/cmr/m/n/10.95 Publication Co-de:
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
+\T1/cmr/m/n/10.95 Entered af-fi-lia-tion:
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Stu-di di Pa-do-va',
+\T1/cmr/m/n/10.95 'U-ni-ver-si-ty of Pa-
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Affiliazione au-to-ri:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
+\T1/cmr/m/n/10.95 Author af-fi-lia-tion:
  []
 
 
@@ -605,36 +625,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 807--807
  []
 
 
-Underfull \hbox (badness 1748) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Argomento: 'Bioin-
- []
-
-
-Underfull \hbox (badness 5924) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Affiliazione in-se-ri-ta:
+Underfull \hbox (badness 1231) in paragraph at lines 807--807
+\T1/cmr/m/n/10.95 the af-fi-lia-tion of at
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
+[]|\T1/cmr/m/n/10.95 Publication Co-de:
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 Affiliazione au-to-ri:
+\T1/cmr/m/n/10.95 Entered af-fi-lia-tion:
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 807--807
-\T1/cmr/m/n/10.95 'U-ni-ver-si-tà de-gli
+\T1/cmr/m/n/10.95 Author af-fi-lia-tion:
  []
 
-[23] [24]
-Overfull \hbox (7.05533pt too wide) in paragraph at lines 814--815
-[]\T1/cmr/m/n/12 Integrità Re-fe-ren-zia-le Com-ples-sa: Nel-le ta-bel-le di as-so-cia-zio-ne \T1/cmtt/m/n/12 PubblicazioneAutore
+
+Underfull \hbox (badness 1968) in paragraph at lines 807--807
+\T1/cmr/m/n/10.95 and re-cord in-ser-ted
  []
 
-[25] [26] [27] [28] [29] (c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ENG]database_project.aux)
+[23] [24] [25] [26] [27] [28] [29] (c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ENG]database_project.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -653,9 +668,9 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  57i,11n,65p,1323b,1901s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1095.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1095.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1095.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0800.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk> <C:\Users\stefa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/stefa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on "c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ENG]database_project.pdf" (30 pages, 2081131 bytes).
+Output written on "c:\Users\stefa\OneDrive\Desktop\Gasi di Dati\database_uniud_project\database_uniud_project\latex\build\[ENG]database_project.pdf" (30 pages, 2077845 bytes).
 PDF statistics:
- 856 PDF objects out of 1000 (max. 8388607)
+ 849 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
