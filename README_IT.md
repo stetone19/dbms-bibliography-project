@@ -109,10 +109,12 @@ psql -d bibliography -f bibliografia_db.sql
 
 
 ```
-academic-bibliography-db/
-├── bibliografia_db.sql       # Script SQL completo (DDL + trigger + dati + query)
-├── relazione.pdf             # Relazione di progetto (requisiti → concettuale → logico → fisico)
-└── README.md
+dbms-bibliography-project/
+├── latex
+├── src       
+├── sql       # Full SQL script (DDL + triggers + data + queries)
+├── README.md
+└── README_IT.md
 ```
 
 ---

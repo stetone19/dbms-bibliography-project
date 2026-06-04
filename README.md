@@ -109,9 +109,10 @@ psql -d bibliography -f bibliografia_db.sql
 ```
 dbms-bibliography-project/
 ├── latex
-├── src
-├── bibliografia_db.sql       # Full SQL script (DDL + triggers + data + queries)
-└── README.md
+├── src       
+├── sql       # Full SQL script (DDL + triggers + data + queries)
+├── README.md
+└── README_IT.md
 ```
 
 ---
