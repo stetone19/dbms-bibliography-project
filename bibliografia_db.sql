@@ -268,7 +268,6 @@ CREATE OR REPLACE FUNCTION check_articolo()
     IF EXISTS(SELECT CodicePubblicazione FROM LIBRI WHERE NEW.CodicePubblicazione = CodicePubblicazione)
     OR EXISTS(SELECT CodicePubblicazione FROM TESI WHERE NEW.CodicePubblicazione = CodicePubblicazione) THEN
         RAISE EXCEPTION 'Il codice della pubblicazione è attualmente in uso in un altro tipo (Libro o Tesi)';
-        RETURN NULL;
     END IF;
     
     -- 2. Controllo esclusività degli attributi in base al Tipo di articolo
