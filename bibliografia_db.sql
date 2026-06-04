@@ -163,8 +163,8 @@ CREATE OR REPLACE FUNCTION inc_n_citazioni()
 				RAISE EXCEPTION 'Creazione di una citazione ciclica';
 			END IF;
 		END IF;
-		
-        -- Aggiornamento diretto (molto più efficiente)
+
+		--Aggiornamento
         UPDATE public.pubblicazioni
         SET ncitazioni = ncitazioni + 1
         WHERE codice = NEW.PubblicazioneCitata;
@@ -176,8 +176,6 @@ $$;
 CREATE TRIGGER trg_ins_CIT
 BEFORE INSERT ON public.citazioni
 FOR EACH ROW EXECUTE FUNCTION inc_n_citazioni();
-
----
 
 -- 2. TRIGGER PER LA CANCELLAZIONE (Decremento)
 CREATE OR REPLACE FUNCTION dec_n_citazioni()
@@ -195,8 +193,6 @@ $$;
 CREATE TRIGGER trg_rim_CIT
 BEFORE DELETE ON public.citazioni
 FOR EACH ROW EXECUTE FUNCTION dec_n_citazioni();
-
----
 
 -- 3. TRIGGER PER BLOCCARE L'UPDATE
 CREATE OR REPLACE FUNCTION updt_citazioni()
