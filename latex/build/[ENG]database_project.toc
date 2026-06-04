@@ -1,0 +1,39 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Analysis of Requirements}{1}{}%
+\contentsline {subsection}{\numberline {1.1}Introduction to the Request}{1}{}%
+\contentsline {subsection}{\numberline {1.2}Glossary of Terms}{2}{}%
+\contentsline {subsection}{\numberline {1.3}Structuration of Requirements}{2}{}%
+\contentsline {subsubsection}{\numberline {1.3.1}General Statements}{2}{}%
+\contentsline {subsubsection}{\numberline {1.3.2}Detail of Requirements for Specific Entities and Relationships}{2}{}%
+\contentsline {subsubsection}{\numberline {1.3.3}Operational Requirements}{3}{}%
+\contentsline {section}{\numberline {2}Conceptual Design}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Publication Management}{4}{}%
+\contentsline {subsection}{\numberline {2.2}Management of the Affiliation Entity and Its Specializations}{5}{}%
+\contentsline {subsection}{\numberline {2.3}Integration of Components and Final Schema}{6}{}%
+\contentsline {section}{\numberline {3}Logical Design}{7}{}%
+\contentsline {subsection}{\numberline {3.1}Volume Table}{7}{}%
+\contentsline {subsection}{\numberline {3.2}Redundancy Analysis}{7}{}%
+\contentsline {subsubsection}{\numberline {3.2.1}Redundant Attributes}{8}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}With Redundancy of the NumeroCitazioni Attribute}{8}{}%
+\contentsline {paragraph}{Logical steps:}{8}{}%
+\contentsline {subsubsection}{\numberline {3.2.3}Without Redundancy of the NumeroCitazioni Attribute}{9}{}%
+\contentsline {paragraph}{Description:}{9}{}%
+\contentsline {paragraph}{Logical steps:}{9}{}%
+\contentsline {subsubsection}{\numberline {3.2.4}Comparative Study}{9}{}%
+\contentsline {subsection}{\numberline {3.3}ER schema restructuring}{10}{}%
+\contentsline {subsection}{\numberline {3.4}Logical schema}{12}{}%
+\contentsline {section}{\numberline {4}Physical design (DB implementation)}{14}{}%
+\contentsline {subsection}{\numberline {4.1}SQL Table Generation}{14}{}%
+\contentsline {subsection}{\numberline {4.2}Database Population}{17}{}%
+\contentsline {subsection}{\numberline {4.3}Trigger}{18}{}%
+\contentsline {subsubsection}{\numberline {4.3.1}Trigger for incrementing the number of citations}{18}{}%
+\contentsline {subsubsection}{\numberline {4.3.2}Trigger per il decremento del numero di citazioni}{21}{}%
+\contentsline {subsubsection}{\numberline {4.3.3}Trigger per bloccare l'update delle citazioni}{22}{}%
+\contentsline {subsubsection}{\numberline {4.3.4}Trigger per il controllo dell'affiliazione universitaria nelle tesi}{22}{}%
+\contentsline {subsubsection}{\numberline {4.3.5}Implementazione di trigger esterni alla richiesta}{25}{}%
+\contentsline {section}{\numberline {5}Query}{25}{}%
+\contentsline {paragraph}{}{27}{}%
+\contentsline {paragraph}{Nota sull'inefficacia dell'attributo derivato nella query Q4:}{28}{}%
+\contentsline {section}{\numberline {6}Implementazione operazioni principali in SQL}{28}{}%
+\contentsline {section}{\numberline {7}Autori}{29}{}%
